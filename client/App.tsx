@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import SearchResults from "./pages/SearchResults";
 import Feed from "./pages/Feed";
 import BookingHistory from "./pages/BookingHistory";
+import ProfileEdit from "./pages/ProfileEdit";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/booking" element={<BookingForm />} />
           <Route path="/booking-summary" element={<BookingSummary />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/booking-history" element={<BookingHistory />} />
