@@ -227,25 +227,34 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="flex justify-around items-center mt-2">
-          <div className="text-center text-white">
+          <Link to="/booking-history" className="text-center text-white">
             <svg
               className="w-5 h-5 mx-auto mb-1"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
-              <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
+              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
             </svg>
-          </div>
-          <div className="text-center text-white">
+          </Link>
+          <Link to="/feed" className="text-center text-white">
             <svg
               className="w-5 h-5 mx-auto mb-1"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5S5 9.329 5 8.5zM9 9h2v1H9V9zm0-2.5h9v1H9v-1zM9 12h9v1H9v-1zm0 2.5h9v1H9v-1zM5 13.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 14.328 5 13.5zM5 18.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 19.328 5 18.5z" />
+            </svg>
+          </Link>
+          <div className="text-center text-white bg-white/20 rounded-full p-1">
+            <svg
+              className="w-5 h-5 mx-auto mb-1"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
             </svg>
           </div>
-          <div className="text-center text-white">
+          <Link to="/search" className="text-center text-white">
             <svg
               className="w-5 h-5 mx-auto mb-1"
               fill="currentColor"
@@ -253,8 +262,8 @@ export default function Dashboard() {
             >
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
             </svg>
-          </div>
-          <div className="text-center text-white">
+          </Link>
+          <Link to="/profile" className="text-center text-white">
             <svg
               className="w-5 h-5 mx-auto mb-1"
               fill="currentColor"
@@ -262,7 +271,7 @@ export default function Dashboard() {
             >
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
             </svg>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
