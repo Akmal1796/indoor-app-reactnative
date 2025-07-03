@@ -98,13 +98,15 @@ export default function Profile() {
                   {user.name}
                 </h1>
                 <p className="text-sm text-gray-500 mb-3">{user.email}</p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-primary text-primary hover:bg-primary/10"
-                >
-                  Edit Profile
-                </Button>
+                <Link to="/profile/edit">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-primary text-primary hover:bg-primary/10"
+                  >
+                    Edit Profile
+                  </Button>
+                </Link>
               </div>
             </div>
 
