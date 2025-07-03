@@ -113,11 +113,11 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className="space-y-4">
-            {venues.map((venue) => (
+          <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide snap-x snap-mandatory">
+            {venues.concat(venues).map((venue, index) => (
               <div
-                key={venue.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border"
+                key={`${venue.id}-${index}`}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm border min-w-[280px] flex-shrink-0 snap-start"
               >
                 <div className="relative">
                   <img
@@ -190,25 +190,64 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className="bg-white rounded-2xl overflow-hidden shadow-sm border">
-            <img
-              src={venues[0].image}
-              alt="Recommended venue"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                <span className="text-sm font-medium">4.5</span>
-                <span className="text-xs text-gray-500">(1,240 reviews)</span>
+          <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide snap-x snap-mandatory">
+            {[
+              {
+                name: "Thansar Futsal",
+                image: venues[0].image,
+                rating: 4.5,
+                reviews: 1240,
+                address: "W5975 Elizabeth Ln, Tomahawk, WI 54487",
+                id: 3,
+              },
+              {
+                name: "Royal Cricket Club",
+                image:
+                  "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&h=200&fit=crop",
+                rating: 4.8,
+                reviews: 856,
+                address: "7009 Forest Avenue, Boston, MA 02119",
+                id: 4,
+              },
+              {
+                name: "Elite Badminton Center",
+                image:
+                  "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=200&fit=crop",
+                rating: 4.6,
+                reviews: 592,
+                address: "1234 Sports Avenue, Colombo 05",
+                id: 5,
+              },
+            ].map((venue) => (
+              <div
+                key={venue.id}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm border min-w-[280px] flex-shrink-0 snap-start"
+              >
+                <img
+                  src={venue.image}
+                  alt={venue.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-medium">{venue.rating}</span>
+                    <span className="text-xs text-gray-500">
+                      ({venue.reviews.toLocaleString()} reviews)
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    {venue.name}
+                  </h3>
+                  <p className="text-xs text-gray-500 mb-3">{venue.address}</p>
+                  <Link to={`/venue/${venue.id}`}>
+                    <Button className="w-full bg-green-50 text-primary border-0 hover:bg-green-100">
+                      Check Availability
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1">
-                Thansar Futsal
-              </h3>
-              <p className="text-xs text-gray-500">
-                W5975 Elizabeth Ln, Tomahawk, WI 54487
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>
