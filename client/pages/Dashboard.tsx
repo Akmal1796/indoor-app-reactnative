@@ -48,10 +48,10 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 md:flex md:flex-col">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4">
-        <div className="flex items-center justify-between">
+      <div className="bg-[#4827EC] text-white p-4 md:flex md:flex-col">
+        <div className="flex items-center justify-between md:flex-row md:mr-auto md:w-full max-w-[600px] md:mx-auto">
           <Link to="/messages">
             <Button
               size="sm"
@@ -62,7 +62,7 @@ export default function Dashboard() {
             </Button>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 md:w-full md:justify-center md:mx-auto">
             <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
               <span className="text-[#4827EC] font-bold text-lg">I</span>
             </div>
@@ -72,7 +72,7 @@ export default function Dashboard() {
           <Button
             size="sm"
             variant="ghost"
-            className="bg-white/20 hover:bg-white/30 text-white p-2"
+            className="bg-white/20 hover:bg-white/30 text-white p-2 md:ml-auto md:mr-2.5"
           >
             <Bell className="w-5 h-5" />
           </Button>
@@ -81,7 +81,7 @@ export default function Dashboard() {
 
       <div className="px-4 pb-20">
         {/* Search */}
-        <div className="relative -mt-6 mb-6">
+        <div className="relative -mt-6 mb-6 md:mt-3">
           <div className="bg-white rounded-2xl shadow-sm border p-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5" />
