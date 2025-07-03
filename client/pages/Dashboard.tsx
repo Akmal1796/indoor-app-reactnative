@@ -50,30 +50,37 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 md:flex md:flex-col">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4 md:flex md:flex-row md:justify-center md:items-start">
-        <div className="flex items-center justify-between max-w-[600px] md:mr-auto">
-          <div className="text-lg md:w-[550px] md:text-center gap-2">
-            IndoorB
+      <div className="bg-[#4827EC] text-white p-4">
+        <div className="flex items-center justify-between">
+          {/* Left Column - Logo */}
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+              <span className="text-[#4827EC] font-bold text-lg">I</span>
+            </div>
+            <span className="text-lg font-semibold">IndoorB</span>
+          </div>
+
+          {/* Right Column - Message and Notification Buttons */}
+          <div className="flex items-center gap-2">
+            <Link to="/messages">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="bg-white/20 hover:bg-white/30 text-white p-2"
+              >
+                <MessageCircle className="w-5 h-5" />
+              </Button>
+            </Link>
+
+            <Button
+              size="sm"
+              variant="ghost"
+              className="bg-white/20 hover:bg-white/30 text-white p-2"
+            >
+              <Bell className="w-5 h-5" />
+            </Button>
           </div>
         </div>
-
-        <Link to="/messages">
-          <Button
-            size="sm"
-            variant="ghost"
-            className="bg-white/20 hover:bg-white/30 text-white p-2 md:mr-2.5"
-          >
-            <MessageCircle className="w-5 h-5" />
-          </Button>
-        </Link>
-
-        <Button
-          size="sm"
-          variant="ghost"
-          className="bg-white/20 hover:bg-white/30 text-white p-2"
-        >
-          <Bell className="w-5 h-5" />
-        </Button>
       </div>
 
       <div className="px-4 pb-20">
