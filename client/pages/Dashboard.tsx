@@ -78,7 +78,7 @@ export default function Dashboard() {
 
       <div className="px-4 pb-20">
         {/* Search */}
-        <div className="relative -mt-6 mb-6 md:mt-3">
+        <div className="relative -mt-6 mb-6 md:mt-3.5">
           <div className="bg-white rounded-2xl shadow-sm border p-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5" />
