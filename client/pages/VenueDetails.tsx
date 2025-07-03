@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ReviewModal from "@/components/ReviewModal";
 import {
   ChevronLeft,
   Heart,
@@ -11,11 +12,18 @@ import {
   Users,
   Droplets,
   Trophy,
+  Plus,
 } from "lucide-react";
 
 export default function VenueDetails() {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("sports");
+  const [showReviewModal, setShowReviewModal] = useState(false);
+
+  const handleReviewSubmit = (reviewData: any) => {
+    console.log("New review submitted:", reviewData);
+    // Handle review submission logic here
+  };
 
   const venue = {
     id: 1,
@@ -396,6 +404,18 @@ export default function VenueDetails() {
           </Link>
         </div>
       </div>
+
+      <div className="flex flex-col relative min-h-[100px] p-5 max-w-[1200px] mx-auto">
+        <section className="flex flex-col relative min-h-[100px] p-5 w-full self-stretch flex-grow max-w-[1200px] mx-auto"></section>
+      </div>
+
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={showReviewModal}
+        onClose={() => setShowReviewModal(false)}
+        venueName={venue.name}
+        onSubmit={handleReviewSubmit}
+      />
     </div>
   );
 }
