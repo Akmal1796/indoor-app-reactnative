@@ -22,6 +22,7 @@ import {
   Calendar,
   List,
   User,
+  MapPin,
 } from "lucide-react";
 
 const Messages = () => {
