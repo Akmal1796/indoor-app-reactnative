@@ -237,10 +237,23 @@ export default function VenueDetails() {
             </TabsContent>
 
             <TabsContent value="info" className="p-4 space-y-6">
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  Facilities
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Venue Information
                 </h2>
+                <Button
+                  onClick={() => setShowReviewModal(true)}
+                  className="bg-[#4827EC] hover:bg-[#3d1fb8] text-white px-4 py-2 text-sm"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Write Review
+                </Button>
+              </div>
+
+              <div>
+                <h3 className="text-md font-semibold text-gray-900 mb-4">
+                  Facilities
+                </h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <div className="p-2 bg-gray-100 rounded-lg">
