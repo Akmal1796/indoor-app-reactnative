@@ -15,6 +15,11 @@ import {
   MapPin,
   Calendar as CalendarIcon,
   Clock,
+  List,
+  Search,
+  User,
+  Home,
+  CalendarArrowDown,
 } from "lucide-react";
 
 export default function BookingForm() {
@@ -22,6 +27,7 @@ export default function BookingForm() {
     new Date(),
   );
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const [selectedGame, setSelectedGame] = useState<string>("football");
 
   const games = [
@@ -49,17 +55,55 @@ export default function BookingForm() {
   ];
 
   const handleBooking = () => {
-    if (selectedDate && selectedTime && selectedGame) {
-      // Store booking data and navigate to summary
+    if (selectedDate && selectedTimeSlots.length > 0 && selectedGame) {
+      const gameObj = games.find((g) => g.id === selectedGame);
+      const price = parseInt(gameObj?.price.replace(/[^\d]/g, "") || "0", 10);
+      const total = price * selectedTimeSlots.length;
       const bookingData = {
-        game: games.find((g) => g.id === selectedGame),
+        game: gameObj,
         date: selectedDate,
-        time: selectedTime,
+        time: selectedTimeSlots, // pass as array
         venue: "Kanzul Sports Complex",
+        total, // pass total amount
       };
       localStorage.setItem("bookingData", JSON.stringify(bookingData));
     }
   };
+
+  function mergeTimeSlots(slots: string[]) {
+    if (slots.length === 0) return [];
+    // Parse slots into [start, end] pairs
+    const ranges = slots
+      .map((slot) => {
+        const [start, end] = slot.split(" - ");
+        // Convert to 24h for sorting
+        const to24 = (t: string) => {
+          const [time, ampm] = t.split(" ");
+          let [h, m] = time.split(":").map(Number);
+          if (ampm === "PM" && h !== 12) h += 12;
+          if (ampm === "AM" && h === 12) h = 0;
+          return h * 60 + m;
+        };
+        return { start, end, startMins: to24(start), endMins: to24(end) };
+      })
+      .sort((a, b) => a.startMins - b.startMins);
+
+    const merged: { start: string; end: string }[] = [];
+    let curr = { ...ranges[0] };
+
+    for (let i = 1; i < ranges.length; i++) {
+      if (curr.endMins === ranges[i].startMins) {
+        // Extend current range
+        curr.end = ranges[i].end;
+        curr.endMins = ranges[i].endMins;
+      } else {
+        merged.push({ start: curr.start, end: curr.end });
+        curr = { ...ranges[i] };
+      }
+    }
+    merged.push({ start: curr.start, end: curr.end });
+    return merged.map((r) => `${r.start} - ${r.end}`);
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -128,7 +172,7 @@ export default function BookingForm() {
                       <div className="flex justify-between items-center w-full">
                         <span>{game.name}</span>
                         <span className="text-sm text-gray-500 ml-4">
-                          {game.price}/hour
+                          {game.price}.00
                         </span>
                       </div>
                     </SelectItem>
@@ -164,32 +208,62 @@ export default function BookingForm() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <Clock className="w-5 h-5 text-primary" />
-                Select Time
+                Select Time Slot(s)
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-3 gap-3">
-                {timeSlots.map((time) => (
-                  <Button
-                    key={time}
-                    variant={selectedTime === time ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedTime(time)}
-                    className={
-                      selectedTime === time
-                        ? "bg-primary text-white"
-                        : "hover:bg-primary/10"
-                    }
-                  >
-                    {time}
-                  </Button>
-                ))}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {Array.from({ length: 24 }, (_, i) => {
+                  const start = new Date();
+                  start.setHours(i, 0, 0, 0);
+                  const end = new Date();
+                  end.setHours(i + 1, 0, 0, 0);
+                  const label = `${start.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })} - ${end.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}`;
+                  const value = label;
+                  const isSelected = selectedTimeSlots.includes(value);
+
+                  // Example: disable "01:00 AM - 02:00 AM"
+                  const bookedSlots = ["01:00 AM - 02:00 AM", "03:00 AM - 04:00 AM","04:00 AM - 05:00 AM"];
+                  const isBooked = bookedSlots.includes(value);
+
+                  return (
+                    <Button
+                      key={value}
+                      variant={isSelected ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => {
+                        setSelectedTimeSlots((prev) =>
+                          isSelected
+                            ? prev.filter((t) => t !== value)
+                            : [...prev, value]
+                        );
+                        setSelectedTime(value);
+                      }}
+                      className={
+                        isSelected
+                          ? "bg-primary text-white"
+                          : "hover:bg-primary/10"
+                      }
+                      disabled={isBooked}
+                    >
+                      {label}
+                    </Button>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
 
           {/* Booking Summary */}
-          {selectedGame && selectedDate && selectedTime && (
+          {selectedGame && selectedDate && selectedTimeSlots.length > 0 && (
             <Card className="bg-green-50 border-green-200">
               <CardHeader>
                 <CardTitle className="text-lg text-green-800">
@@ -217,12 +291,18 @@ export default function BookingForm() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600">Time:</span>
-                  <span className="text-sm font-medium">{selectedTime}</span>
+                  <span className="text-sm font-medium">
+                    {mergeTimeSlots(selectedTimeSlots).join(", ")}
+                  </span>
                 </div>
                 <div className="flex justify-between font-semibold text-lg pt-2 border-t">
                   <span>Total:</span>
                   <span className="text-primary">
-                    {games.find((g) => g.id === selectedGame)?.price}/hour
+                    {(() => {
+                      const priceStr = games.find((g) => g.id === selectedGame)?.price || "LKR 0";
+                      const price = parseInt(priceStr.replace(/[^\d]/g, ""), 10);
+                      return `LKR ${price * selectedTimeSlots.length}.00`;
+                    })()}
                   </span>
                 </div>
               </CardContent>
@@ -234,14 +314,14 @@ export default function BookingForm() {
             to="/booking-summary"
             onClick={handleBooking}
             className={`block ${
-              !(selectedGame && selectedDate && selectedTime)
+              !(selectedGame && selectedDate && selectedTimeSlots.length > 0)
                 ? "pointer-events-none"
                 : ""
             }`}
           >
             <Button
-              className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl text-lg font-medium"
-              disabled={!(selectedGame && selectedDate && selectedTime)}
+              className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl text-lg font-medium mb-6"
+              disabled={!(selectedGame && selectedDate && selectedTimeSlots.length > 0)}
             >
               Proceed to Booking
             </Button>
@@ -250,59 +330,31 @@ export default function BookingForm() {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-primary px-4 py-2">
-        <div className="flex items-center justify-center relative">
-          <div className="bg-white rounded-full p-3 shadow-lg">
-            <Link to="/dashboard">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-        <div className="flex justify-around items-center mt-2">
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
+        <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-            </svg>
+            <CalendarArrowDown className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">History</span>
           </Link>
           <Link to="/feed" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5S5 9.329 5 8.5zM9 9h2v1H9V9zm0-2.5h9v1H9v-1zM9 12h9v1H9v-1zm0 2.5h9v1H9v-1zM5 13.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 14.328 5 13.5zM5 18.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 19.328 5 18.5z" />
-            </svg>
+            <List className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Feed</span>
           </Link>
           <div className="text-center text-white">
-            {/* Center space for home button */}
+            <Link
+              to="/dashboard"
+              className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
+            >
+              <Home className="h-6 w-6" />
+            </Link>
           </div>
           <Link to="/search" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
+            <Search className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Search</span>
           </Link>
           <Link to="/profile" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
+            <User className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Profile</span>
           </Link>
         </div>
       </div>

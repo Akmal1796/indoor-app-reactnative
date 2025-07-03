@@ -11,6 +11,9 @@ import {
   Star,
   MessageCircle,
   Calendar,
+  List,
+  User,
+  Home,
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -28,7 +31,7 @@ export default function Dashboard() {
       id: 1,
       name: "Kanzul Sport Complex",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Facf91b9d57e64a92b0af763ffa7de4af?format=webp&width=800",
+        "https://caavl.com/storage/files/lk/1926/thumb-816x460-487a8ca23f14c980894df937a151e030.jpg",
       rating: 4.5,
       reviews: 1240,
       address: "6315 N. Warana Road Thihariya",
@@ -39,7 +42,7 @@ export default function Dashboard() {
       id: 2,
       name: "Ahmd Sport",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2F346236e223bd4bddb7217ef84f427303?format=webp&width=800",
+        "https://caavl.com/storage/files/lk/1928/thumb-816x460-6feaf76aff9cd80dcff6b389660e36ba.jpeg",
       rating: 4.5,
       reviews: 856,
       address: "7009 Forest Avenue, Boston, MA 02119",
@@ -51,12 +54,12 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 md:flex md:flex-col">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4">
+      <div className="bg-green-600 text-white p-4">
         <div className="flex items-center justify-between">
           {/* Left Column - Logo */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-              <span className="text-[#4827EC] font-bold text-lg">I</span>
+                <span className="text-green-600 font-bold text-lg">I</span>
             </div>
             <span className="text-lg font-semibold">IndoorB</span>
           </div>
@@ -87,7 +90,7 @@ export default function Dashboard() {
       <div className="px-4 pb-20">
         {/* Search */}
         <div className="relative -mt-6 mb-6 md:mt-3.5">
-          <div className="bg-white rounded-2xl shadow-sm border p-4 md:mt-4">
+            <div className="bg-white rounded-2xl shadow-sm border p-4 md:mt-8 mt-6">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5" />
               <Input
@@ -272,68 +275,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-primary px-4 py-2">
-        <div className="flex items-center justify-center relative">
-          <div className="bg-white rounded-full p-3 shadow-lg">
-            <svg
-              className="w-6 h-6 text-primary"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-          </div>
-        </div>
-        <div className="flex justify-around items-center mt-2">
-          <Link to="/booking-history" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-            </svg>
-          </Link>
-          <Link to="/feed" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5S5 9.329 5 8.5zM9 9h2v1H9V9zm0-2.5h9v1H9v-1zM9 12h9v1H9v-1zm0 2.5h9v1H9v-1zM5 13.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 14.328 5 13.5zM5 18.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 19.328 5 18.5z" />
-            </svg>
-          </Link>
-          <div className="text-center text-white bg-white/20 rounded-full p-1">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-          </div>
-          <Link to="/search" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
-          </Link>
-          <Link to="/profile" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
-          </Link>
-        </div>
-      </div>
-
+  
       {/* Recent Feed News Section */}
       <div className="flex flex-col relative min-h-[100px] p-5 max-w-[1200px] mx-auto">
         <section className="flex flex-col relative min-h-[100px] p-5 w-full self-stretch flex-grow max-w-[1200px] mx-auto">
@@ -342,12 +284,12 @@ export default function Dashboard() {
               <h2 className="text-xl font-bold text-gray-900">
                 Recent Sports News
               </h2>
-              <Link
+                <Link
                 to="/feed"
-                className="text-sm text-[#4827EC] font-medium hover:underline"
-              >
+                className="text-sm text-green-600 font-medium hover:underline"
+                >
                 View All
-              </Link>
+                </Link>
             </div>
 
             {/* Horizontal Scroll Container */}
@@ -470,43 +412,72 @@ export default function Dashboard() {
           </div>
 
           {/* Quick Actions */}
-          <div className="mt-4">
+            <div className="mt-4 mb-12">
             <h3 className="text-lg font-semibold text-gray-900 mb-3">
               Quick Actions
             </h3>
             <div className="grid grid-cols-2 gap-3">
               <Link to="/feed" className="block">
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-white hover:shadow-lg transition-shadow">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                      <span className="text-lg">📰</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-sm">Sports Feed</h4>
-                      <p className="text-xs opacity-90">
-                        Latest updates & news
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-white hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-lg">📰</span>
+              </div>
+              <div>
+                <h4 className="font-semibold text-sm">Sports Feed</h4>
+                <p className="text-xs opacity-90">
+                {/* Latest updates & news */}
+                </p>
+              </div>
+              </div>
+              </div>
               </Link>
 
               <Link to="/booking-history" className="block">
-                <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-4 text-white hover:shadow-lg transition-shadow">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                      <Calendar className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-sm">My Bookings</h4>
-                      <p className="text-xs opacity-90">View your activity</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-4 text-white hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <Calendar className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-sm">My Bookings</h4>
+                {/* <p className="text-xs opacity-90">View your activity</p> */}
+              </div>
+              </div>
+              </div>
               </Link>
             </div>
-          </div>
+            </div>
         </section>
+      </div>
+        {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
+        <div className="flex items-center justify-around">
+          <Link to="/booking-history" className="text-center text-white">
+            <Calendar className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">History</span>
+          </Link>
+          <Link to="/feed" className="text-center text-white">
+            <List className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Feed</span>
+          </Link>
+          <div className="text-center text-white">
+            <Link
+              to="/dashboard"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
+            >
+              <Home className="h-6 w-6" />
+            </Link>
+          </div>
+          <Link to="/search" className="text-center text-white">
+            <Search className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Search</span>
+          </Link>
+          <Link to="/profile" className="text-center text-white">
+            <User className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Profile</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

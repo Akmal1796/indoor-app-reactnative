@@ -370,35 +370,35 @@ const BookingHistory = () => {
         )}
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#4827EC] text-white p-4">
-        <div className="flex items-center justify-around">
-          <Link to="/booking-history" className="text-center text-white">
-            <Calendar className="h-6 w-6 mx-auto mb-1" />
-            <span className="text-xs">History</span>
-          </Link>
-          <Link to="/feed" className="text-center text-white">
-            <List className="h-6 w-6 mx-auto mb-1" />
-            <span className="text-xs">Feed</span>
-          </Link>
-          <div className="text-center text-white">
-            <Link
-              to="/dashboard"
-              className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
-            >
-              <Home className="h-6 w-6" />
-            </Link>
-          </div>
-          <Link to="/search" className="text-center text-white">
-            <Search className="h-6 w-6 mx-auto mb-1" />
-            <span className="text-xs">Search</span>
-          </Link>
-          <Link to="/profile" className="text-center text-white">
-            <User className="h-6 w-6 mx-auto mb-1" />
-            <span className="text-xs">Profile</span>
-          </Link>
-        </div>
-      </div>
+    {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
+           <div className="flex items-center justify-around">
+             <Link to="/booking-history" className="text-center text-white">
+               <Calendar className="h-6 w-6 mx-auto mb-1" />
+               <span className="text-xs">History</span>
+             </Link>
+             <Link to="/feed" className="text-center text-white">
+               <List className="h-6 w-6 mx-auto mb-1" />
+               <span className="text-xs">Feed</span>
+             </Link>
+             <div className="text-center text-white">
+               <Link
+                 to="/dashboard"
+                 className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
+               >
+                 <Home className="h-6 w-6" />
+               </Link>
+             </div>
+             <Link to="/search" className="text-center text-white">
+               <Search className="h-6 w-6 mx-auto mb-1" />
+               <span className="text-xs">Search</span>
+             </Link>
+             <Link to="/profile" className="text-center text-white">
+               <User className="h-6 w-6 mx-auto mb-1" />
+               <span className="text-xs">Profile</span>
+             </Link>
+           </div>
+         </div>
     </div>
   );
 };
