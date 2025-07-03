@@ -167,7 +167,7 @@ const BookingHistory = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4">
+      <div className="bg-[#1DBF73] text-white p-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-semibold">Booking History</h1>

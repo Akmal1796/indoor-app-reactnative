@@ -380,7 +380,7 @@ export default function VenueDetails() {
           <div className="text-center text-white">
             <Link
               to="/dashboard"
-              className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
             >
               <Home className="h-6 w-6" />
             </Link>

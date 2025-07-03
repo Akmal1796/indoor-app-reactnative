@@ -134,7 +134,7 @@ const Feed = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4">
+      <div className="bg-[#1DBF73] text-white p-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-semibold">Sports Feed</h1>
@@ -473,7 +473,7 @@ const Feed = () => {
           <div className="text-center text-white">
             <Link
               to="/dashboard"
-              className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
             >
               <Home className="h-6 w-6" />
             </Link>

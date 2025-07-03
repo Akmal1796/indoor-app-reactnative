@@ -169,7 +169,7 @@ const Team = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4 sticky top-0 z-10">
+      <div className="bg-green-600 text-white p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
@@ -207,7 +207,7 @@ const Team = () => {
       {/* Tabs */}
       <div className="bg-white border-b sticky top-16 z-10">
         <div className="flex">
-          <button
+            <button
             onClick={() => setActiveTab("my-teams")}
             className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
               activeTab === "my-teams"
@@ -652,7 +652,7 @@ const Team = () => {
           <div className="text-center text-white">
             <Link
               to="/dashboard"
-              className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
             >
               <Home className="h-6 w-6" />
             </Link>
