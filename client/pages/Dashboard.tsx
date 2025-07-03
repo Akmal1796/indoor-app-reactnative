@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, Bell, MapPin, Filter, Star } from "lucide-react";
+import {
+  Search,
+  Bell,
+  MapPin,
+  Filter,
+  Star,
+  MessageCircle,
+} from "lucide-react";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,21 +50,29 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-primary text-white p-4">
+      <div className="bg-[#4827EC] text-white p-4">
         <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm opacity-80">Your Location</p>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                Alijinna Mawatha Thihariya
-              </span>
+          <Link to="/messages">
+            <Button
+              size="sm"
+              variant="ghost"
+              className="bg-white/20 hover:bg-white/30 text-white p-2"
+            >
+              <MessageCircle className="w-5 h-5" />
+            </Button>
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+              <span className="text-[#4827EC] font-bold text-lg">I</span>
             </div>
+            <span className="text-lg font-semibold">IndoorB</span>
           </div>
+
           <Button
             size="sm"
             variant="ghost"
-            className="bg-primary/30 text-white"
+            className="bg-white/20 hover:bg-white/30 text-white p-2"
           >
             <Bell className="w-5 h-5" />
           </Button>

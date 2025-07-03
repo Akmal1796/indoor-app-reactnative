@@ -18,6 +18,7 @@ import Feed from "./pages/Feed";
 import BookingHistory from "./pages/BookingHistory";
 import ProfileEdit from "./pages/ProfileEdit";
 import Team from "./pages/Team";
+import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/messages" element={<Messages />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/booking-history" element={<BookingHistory />} />
