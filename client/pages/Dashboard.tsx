@@ -10,6 +10,7 @@ import {
   Filter,
   Star,
   MessageCircle,
+  Calendar,
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -331,6 +332,181 @@ export default function Dashboard() {
             </svg>
           </Link>
         </div>
+      </div>
+
+      {/* Recent Feed News Section */}
+      <div className="flex flex-col relative min-h-[100px] p-5 max-w-[1200px] mx-auto">
+        <section className="flex flex-col relative min-h-[100px] p-5 w-full self-stretch flex-grow max-w-[1200px] mx-auto">
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900">
+                Recent Sports News
+              </h2>
+              <Link
+                to="/feed"
+                className="text-sm text-[#4827EC] font-medium hover:underline"
+              >
+                View All
+              </Link>
+            </div>
+
+            {/* Horizontal Scroll Container */}
+            <div className="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5 scrollbar-hide snap-x snap-mandatory">
+              {[
+                {
+                  id: 1,
+                  title: "Local Cricket Tournament Starts This Weekend",
+                  excerpt:
+                    "Inter-district cricket tournament featuring 16 teams from across Colombo region.",
+                  image:
+                    "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=300&h=180&fit=crop",
+                  category: "Cricket",
+                  timestamp: "2 hours ago",
+                  venue: "Multiple Venues",
+                  isLive: false,
+                },
+                {
+                  id: 2,
+                  title: "New Badminton Courts Open at SportZone",
+                  excerpt:
+                    "State-of-the-art facilities with professional lighting now available for booking.",
+                  image:
+                    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=180&fit=crop",
+                  category: "Badminton",
+                  timestamp: "4 hours ago",
+                  venue: "SportZone Complex",
+                  isLive: false,
+                },
+                {
+                  id: 3,
+                  title: "Live: Football Championship Final",
+                  excerpt:
+                    "Thunder FC vs Lightning United - Championship final now streaming live.",
+                  image:
+                    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=180&fit=crop",
+                  category: "Football",
+                  timestamp: "Live",
+                  venue: "National Stadium",
+                  isLive: true,
+                },
+                {
+                  id: 4,
+                  title: "Swimming Pool Renovations Complete",
+                  excerpt:
+                    "Pro Courts aquatic center reopens with upgraded facilities and equipment.",
+                  image:
+                    "https://images.unsplash.com/photo-1544966503-7cc5ac882d5e?w=300&h=180&fit=crop",
+                  category: "Swimming",
+                  timestamp: "1 day ago",
+                  venue: "Pro Courts",
+                  isLive: false,
+                },
+                {
+                  id: 5,
+                  title: "Tennis Academy Launches Junior Program",
+                  excerpt:
+                    "New coaching program for young players aged 8-16 with professional trainers.",
+                  image:
+                    "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=180&fit=crop",
+                  category: "Tennis",
+                  timestamp: "2 days ago",
+                  venue: "Elite Tennis Academy",
+                  isLive: false,
+                },
+              ].map((news) => (
+                <div
+                  key={news.id}
+                  className="min-w-[280px] flex-shrink-0 snap-start"
+                >
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-sm border hover:shadow-md transition-shadow">
+                    <div className="relative">
+                      <img
+                        src={news.image}
+                        alt={news.title}
+                        className="w-full h-36 object-cover"
+                      />
+                      {news.isLive && (
+                        <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                          <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                          LIVE
+                        </div>
+                      )}
+                      <div className="absolute top-3 right-3">
+                        <Badge
+                          variant="secondary"
+                          className="bg-black/70 text-white text-xs"
+                        >
+                          {news.category}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <div className="p-4">
+                      <h3 className="font-semibold text-gray-900 text-sm leading-tight mb-2 line-clamp-2">
+                        {news.title}
+                      </h3>
+                      <p className="text-xs text-gray-600 mb-3 line-clamp-2">
+                        {news.excerpt}
+                      </p>
+
+                      <div className="flex items-center justify-between text-xs text-gray-500">
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-3 w-3" />
+                          <span className="truncate">{news.venue}</span>
+                        </div>
+                        <span
+                          className={
+                            news.isLive ? "text-red-500 font-medium" : ""
+                          }
+                        >
+                          {news.timestamp}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              Quick Actions
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              <Link to="/feed" className="block">
+                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-white hover:shadow-lg transition-shadow">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                      <span className="text-lg">📰</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm">Sports Feed</h4>
+                      <p className="text-xs opacity-90">
+                        Latest updates & news
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+
+              <Link to="/booking-history" className="block">
+                <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-4 text-white hover:shadow-lg transition-shadow">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                      <Calendar className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm">My Bookings</h4>
+                      <p className="text-xs opacity-90">View your activity</p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
