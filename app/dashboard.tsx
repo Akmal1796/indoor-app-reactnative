@@ -174,7 +174,7 @@ export default function Dashboard() {
                   onPress={() => console.log("Venue", venue.id)}
                 >
                   <View style={styles.venueImagePlaceholder}>
-                    <Text style={styles.venueImageText}>📷</Text>
+                    <Text style={styles.venueImageText}>🏟️</Text>
                   </View>
 
                   <View style={styles.venueInfo}>
@@ -426,11 +426,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 16,
     padding: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.05)",
   },
   searchInputContainer: {
     flexDirection: "row",
@@ -512,11 +508,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 16,
     overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.05)",
   },
   venueImagePlaceholder: {
     height: 160,
@@ -525,7 +517,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   venueImageText: {
-    fontSize: 40,
+    fontSize: 60,
   },
   venueInfo: {
     padding: 16,
@@ -588,11 +580,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     width: 280,
     marginRight: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.05)",
   },
   newsImageContainer: {
     position: "relative",
