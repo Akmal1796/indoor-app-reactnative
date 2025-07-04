@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import NotificationBadge from "@/components/NotificationBadge";
 import {
   Search,
   Bell,
@@ -73,13 +74,7 @@ export default function Dashboard() {
               </Button>
             </Link>
 
-            <Button
-              size="sm"
-              variant="ghost"
-              className="bg-white/20 hover:bg-white/30 text-white p-2"
-            >
-              <Bell className="w-5 h-5" />
-            </Button>
+            <NotificationBadge count={3} />
           </div>
         </div>
       </div>
