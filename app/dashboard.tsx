@@ -5,13 +5,9 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Image,
-  SafeAreaView,
   StyleSheet,
 } from "react-native";
 import { router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { Ionicons } from "@expo/vector-icons";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,8 +23,6 @@ export default function Dashboard() {
     {
       id: 1,
       name: "Kanzul Sport Complex",
-      image:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=200&fit=crop",
       rating: 4.5,
       reviews: 1240,
       address: "6315 N. Warana Road Thihariya",
@@ -37,8 +31,6 @@ export default function Dashboard() {
     {
       id: 2,
       name: "Ahmd Sport",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=200&fit=crop",
       rating: 4.5,
       reviews: 856,
       address: "7009 Forest Avenue, Boston, MA 02119",
@@ -46,10 +38,41 @@ export default function Dashboard() {
     },
   ];
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="light" backgroundColor="#4827EC" />
+  const newsItems = [
+    {
+      id: 1,
+      title: "Local Cricket Tournament Starts This Weekend",
+      excerpt:
+        "Inter-district cricket tournament featuring 16 teams from across Colombo region.",
+      category: "Cricket",
+      timestamp: "2 hours ago",
+      venue: "Multiple Venues",
+      isLive: false,
+    },
+    {
+      id: 2,
+      title: "New Badminton Courts Open at SportZone",
+      excerpt:
+        "State-of-the-art facilities with professional lighting now available for booking.",
+      category: "Badminton",
+      timestamp: "4 hours ago",
+      venue: "SportZone Complex",
+      isLive: false,
+    },
+    {
+      id: 3,
+      title: "Live: Football Championship Final",
+      excerpt:
+        "Thunder FC vs Lightning United - Championship final now streaming live.",
+      category: "Football",
+      timestamp: "Live",
+      venue: "National Stadium",
+      isLive: true,
+    },
+  ];
 
+  return (
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerRow}>
@@ -61,20 +84,20 @@ export default function Dashboard() {
             <Text style={styles.logoTitle}>IndoorB</Text>
           </View>
 
-          {/* Right Column - Message and Notification Buttons */}
+          {/* Right Column - Action Buttons */}
           <View style={styles.headerButtons}>
             <TouchableOpacity
-              onPress={() => router.push("/messages")}
+              onPress={() => console.log("Messages")}
               style={styles.headerButton}
             >
-              <Ionicons name="chatbubble-outline" size={20} color="white" />
+              <Text style={styles.buttonText}>💬</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => router.push("/notifications")}
+              onPress={() => console.log("Notifications")}
               style={[styles.headerButton, styles.notificationButton]}
             >
-              <Ionicons name="notifications-outline" size={20} color="white" />
+              <Text style={styles.buttonText}>🔔</Text>
               <View style={styles.notificationBadge}>
                 <Text style={styles.notificationBadgeText}>3</Text>
               </View>
@@ -92,12 +115,7 @@ export default function Dashboard() {
           <View style={styles.searchContainer}>
             <View style={styles.searchCard}>
               <View style={styles.searchInputContainer}>
-                <Ionicons
-                  name="search"
-                  size={20}
-                  color="#4827EC"
-                  style={styles.searchIcon}
-                />
+                <Text style={styles.searchIcon}>🔍</Text>
                 <TextInput
                   placeholder="Search Complex, Sports etc"
                   value={searchQuery}
@@ -105,7 +123,7 @@ export default function Dashboard() {
                   style={styles.searchInput}
                 />
                 <TouchableOpacity style={styles.filterButton}>
-                  <Ionicons name="options-outline" size={20} color="#4827EC" />
+                  <Text style={styles.filterIcon}>⚙️</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -116,62 +134,52 @@ export default function Dashboard() {
             horizontal
             showsHorizontalScrollIndicator={false}
             style={styles.categoriesContainer}
-            contentContainerStyle={styles.categoriesContent}
           >
-            {categories.map((category) => (
-              <TouchableOpacity
-                key={category.name}
-                style={[
-                  styles.categoryButton,
-                  category.active && styles.activeCategoryButton,
-                ]}
-              >
-                <Text
+            <View style={styles.categoriesContent}>
+              {categories.map((category) => (
+                <TouchableOpacity
+                  key={category.name}
                   style={[
-                    styles.categoryText,
-                    category.active && styles.activeCategoryText,
+                    styles.categoryButton,
+                    category.active && styles.activeCategoryButton,
                   ]}
                 >
-                  {category.name}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.categoryText,
+                      category.active && styles.activeCategoryText,
+                    ]}
+                  >
+                    {category.name}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </ScrollView>
 
           {/* Nearby Section */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Nearby</Text>
-              <TouchableOpacity onPress={() => router.push("/search")}>
+              <Text style={styles.sectionTitle}>Nearby Venues</Text>
+              <TouchableOpacity>
                 <Text style={styles.seeAllText}>See all</Text>
               </TouchableOpacity>
             </View>
 
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.venuesContent}
-            >
-              {venues.concat(venues).map((venue, index) => (
+            <View style={styles.venuesList}>
+              {venues.map((venue) => (
                 <TouchableOpacity
-                  key={`${venue.id}-${index}`}
-                  onPress={() => router.push(`/venue/${venue.id}`)}
+                  key={venue.id}
                   style={styles.venueCard}
+                  onPress={() => console.log("Venue", venue.id)}
                 >
-                  <View style={styles.venueImageContainer}>
-                    <Image
-                      source={{ uri: venue.image }}
-                      style={styles.venueImage}
-                      resizeMode="cover"
-                    />
-                    <TouchableOpacity style={styles.heartButton}>
-                      <Ionicons name="heart-outline" size={16} color="white" />
-                    </TouchableOpacity>
+                  <View style={styles.venueImagePlaceholder}>
+                    <Text style={styles.venueImageText}>📷</Text>
                   </View>
 
                   <View style={styles.venueInfo}>
                     <View style={styles.venueRating}>
-                      <Ionicons name="star" size={16} color="#FFC107" />
+                      <Text style={styles.starIcon}>⭐</Text>
                       <Text style={styles.ratingText}>{venue.rating}</Text>
                       <Text style={styles.reviewText}>
                         ({venue.reviews.toLocaleString()} reviews)
@@ -189,14 +197,73 @@ export default function Dashboard() {
                       ))}
                     </View>
 
-                    <TouchableOpacity
-                      onPress={() => router.push(`/venue/${venue.id}`)}
-                      style={styles.checkAvailabilityButton}
-                    >
+                    <TouchableOpacity style={styles.checkAvailabilityButton}>
                       <Text style={styles.checkAvailabilityText}>
                         Check Availability
                       </Text>
                     </TouchableOpacity>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          {/* Recent Sports News */}
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Recent Sports News</Text>
+              <TouchableOpacity>
+                <Text style={styles.seeAllText}>View All</Text>
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.newsContent}
+            >
+              {newsItems.map((news) => (
+                <TouchableOpacity key={news.id} style={styles.newsCard}>
+                  <View style={styles.newsImageContainer}>
+                    <View style={styles.newsImagePlaceholder}>
+                      <Text style={styles.newsImageText}>📰</Text>
+                    </View>
+                    {news.isLive && (
+                      <View style={styles.liveIndicator}>
+                        <Text style={styles.liveText}>🔴 LIVE</Text>
+                      </View>
+                    )}
+                    <View style={styles.categoryBadge}>
+                      <Text style={styles.categoryBadgeText}>
+                        {news.category}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.newsInfo}>
+                    <Text style={styles.newsTitle} numberOfLines={2}>
+                      {news.title}
+                    </Text>
+                    <Text style={styles.newsExcerpt} numberOfLines={2}>
+                      {news.excerpt}
+                    </Text>
+
+                    <View style={styles.newsFooter}>
+                      <View style={styles.newsLocation}>
+                        <Text style={styles.locationIcon}>📍</Text>
+                        <Text style={styles.newsVenue} numberOfLines={1}>
+                          {news.venue}
+                        </Text>
+                      </View>
+                      <Text
+                        style={[
+                          styles.newsTimestamp,
+                          news.isLive && styles.liveTimestamp,
+                        ]}
+                      >
+                        {news.timestamp}
+                      </Text>
+                    </View>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -208,7 +275,6 @@ export default function Dashboard() {
             <Text style={styles.sectionTitle}>Quick Actions</Text>
             <View style={styles.quickActions}>
               <TouchableOpacity
-                onPress={() => router.push("/feed")}
                 style={[styles.quickActionButton, styles.feedButton]}
               >
                 <View style={styles.quickActionContent}>
@@ -225,12 +291,11 @@ export default function Dashboard() {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => router.push("/booking-history")}
                 style={[styles.quickActionButton, styles.bookingButton]}
               >
                 <View style={styles.quickActionContent}>
                   <View style={styles.quickActionIcon}>
-                    <Ionicons name="calendar-outline" size={20} color="white" />
+                    <Text style={styles.quickActionEmoji}>📅</Text>
                   </View>
                   <View style={styles.quickActionTextContainer}>
                     <Text style={styles.quickActionTitle}>My Bookings</Text>
@@ -247,44 +312,29 @@ export default function Dashboard() {
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity
-          onPress={() => router.push("/booking-history")}
-          style={styles.navItem}
-        >
-          <Ionicons name="calendar-outline" size={24} color="white" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>📅</Text>
           <Text style={styles.navText}>History</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/feed")}
-          style={styles.navItem}
-        >
-          <Ionicons name="list-outline" size={24} color="white" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>📋</Text>
           <Text style={styles.navText}>Feed</Text>
         </TouchableOpacity>
         <View style={styles.navItem}>
-          <TouchableOpacity
-            onPress={() => router.push("/dashboard")}
-            style={styles.homeButton}
-          >
-            <Ionicons name="home" size={24} color="#4827EC" />
+          <TouchableOpacity style={styles.homeButton}>
+            <Text style={styles.homeIcon}>🏠</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => router.push("/search")}
-          style={styles.navItem}
-        >
-          <Ionicons name="search-outline" size={24} color="white" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>🔍</Text>
           <Text style={styles.navText}>Search</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/profile")}
-          style={styles.navItem}
-        >
-          <Ionicons name="person-outline" size={24} color="white" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>👤</Text>
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -334,6 +384,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.2)",
     padding: 8,
     borderRadius: 8,
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 16,
   },
   notificationButton: {
     position: "relative",
@@ -376,33 +433,36 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   searchInputContainer: {
-    position: "relative",
+    flexDirection: "row",
+    alignItems: "center",
   },
   searchIcon: {
-    position: "absolute",
-    left: 12,
-    top: 12,
-    zIndex: 1,
+    fontSize: 20,
+    marginRight: 12,
+    color: "#4827EC",
   },
   searchInput: {
-    paddingLeft: 48,
-    paddingRight: 48,
-    height: 48,
+    flex: 1,
+    height: 40,
+    fontSize: 16,
     borderWidth: 1,
     borderColor: "#e5e7eb",
-    borderRadius: 12,
-    fontSize: 16,
+    borderRadius: 8,
+    paddingHorizontal: 12,
   },
   filterButton: {
-    position: "absolute",
-    right: 8,
-    top: 8,
+    marginLeft: 8,
     padding: 8,
+  },
+  filterIcon: {
+    fontSize: 16,
+    color: "#4827EC",
   },
   categoriesContainer: {
     marginBottom: 24,
   },
   categoriesContent: {
+    flexDirection: "row",
     paddingRight: 16,
   },
   categoryButton: {
@@ -445,35 +505,27 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#1DBF73",
   },
-  venuesContent: {
-    paddingRight: 16,
+  venuesList: {
+    gap: 16,
   },
   venueCard: {
     backgroundColor: "white",
     borderRadius: 16,
     overflow: "hidden",
-    width: 288,
-    marginRight: 16,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 2,
   },
-  venueImageContainer: {
-    position: "relative",
+  venueImagePlaceholder: {
+    height: 160,
+    backgroundColor: "#e5e7eb",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  venueImage: {
-    width: "100%",
-    height: 192,
-  },
-  heartButton: {
-    position: "absolute",
-    top: 12,
-    right: 12,
-    backgroundColor: "rgba(0,0,0,0.2)",
-    padding: 8,
-    borderRadius: 20,
+  venueImageText: {
+    fontSize: 40,
   },
   venueInfo: {
     padding: 16,
@@ -481,8 +533,11 @@ const styles = StyleSheet.create({
   venueRating: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: 4,
     marginBottom: 8,
+  },
+  starIcon: {
+    fontSize: 16,
   },
   ratingText: {
     fontSize: 14,
@@ -505,7 +560,6 @@ const styles = StyleSheet.create({
   },
   venuePrices: {
     flexDirection: "row",
-    alignItems: "center",
     gap: 16,
     marginBottom: 16,
   },
@@ -523,6 +577,101 @@ const styles = StyleSheet.create({
   },
   checkAvailabilityText: {
     color: "#1DBF73",
+    fontWeight: "500",
+  },
+  newsContent: {
+    paddingRight: 16,
+  },
+  newsCard: {
+    backgroundColor: "white",
+    borderRadius: 16,
+    overflow: "hidden",
+    width: 280,
+    marginRight: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  newsImageContainer: {
+    position: "relative",
+  },
+  newsImagePlaceholder: {
+    height: 140,
+    backgroundColor: "#e5e7eb",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  newsImageText: {
+    fontSize: 30,
+  },
+  liveIndicator: {
+    position: "absolute",
+    top: 12,
+    left: 12,
+    backgroundColor: "#ef4444",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  liveText: {
+    color: "white",
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  categoryBadge: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    backgroundColor: "rgba(0,0,0,0.7)",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  categoryBadgeText: {
+    color: "white",
+    fontSize: 10,
+  },
+  newsInfo: {
+    padding: 16,
+  },
+  newsTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#1f2937",
+    marginBottom: 8,
+  },
+  newsExcerpt: {
+    fontSize: 12,
+    color: "#6b7280",
+    marginBottom: 12,
+  },
+  newsFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  newsLocation: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  locationIcon: {
+    fontSize: 10,
+    marginRight: 4,
+  },
+  newsVenue: {
+    fontSize: 10,
+    color: "#6b7280",
+    flex: 1,
+  },
+  newsTimestamp: {
+    fontSize: 10,
+    color: "#6b7280",
+  },
+  liveTimestamp: {
+    color: "#ef4444",
     fontWeight: "500",
   },
   quickActions: {
@@ -582,14 +731,21 @@ const styles = StyleSheet.create({
   navItem: {
     alignItems: "center",
   },
+  navIcon: {
+    fontSize: 20,
+    marginBottom: 4,
+  },
   navText: {
     color: "white",
     fontSize: 12,
-    marginTop: 4,
   },
   homeButton: {
     backgroundColor: "white",
     borderRadius: 24,
     padding: 12,
+  },
+  homeIcon: {
+    fontSize: 20,
+    color: "#4827EC",
   },
 });

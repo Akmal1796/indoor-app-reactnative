@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 
 export default function WelcomeScreen() {
   useEffect(() => {
@@ -19,8 +18,6 @@ export default function WelcomeScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
-
       {/* Content */}
       <View style={styles.content}>
         {/* Logo */}
