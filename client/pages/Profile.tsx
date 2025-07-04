@@ -19,10 +19,10 @@ import {
 
 export default function Profile() {
   const user = {
-    name: "Ashley Robinson",
-    email: "onlybrianwhite@yahoo.com",
+    name: "Mohamed Saman",
+    email: "saman@webxkey.com",
     avatar:
-      "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Facf91b9d57e64a92b0af763ffa7de4af?format=webp&width=800",
+      "https://media.licdn.com/dms/image/v2/D4E03AQGzhtrV6TYsQw/profile-displayphoto-shrink_200_200/B4EZT0AQtOGwAY-/0/1739260497870?e=2147483647&v=beta&t=73gqVUf1rElwvWbBzZHyEvlDgYQSmGbp4057lItAy5g",
     bio: "Nisi ipsum officia consequat ea in non eiusmod eu. Reprehenderit et exercitation dolore pariatur dolor id aliquip amet nisi laboris.",
   };
 

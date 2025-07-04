@@ -313,17 +313,33 @@ export default function VenueDetails() {
                 </div>
               </div>
 
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
                   Location
-                </h2>
-                <div className="bg-gray-200 rounded-2xl h-48 flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <MapPin className="w-8 h-8 mx-auto mb-2" />
-                    <p className="text-sm">Map View</p>
+                  </h2>
+                  <div className="bg-gray-200 rounded-2xl h-48 flex items-center justify-center overflow-hidden">
+                  <iframe
+                    title="Venue Location"
+                    src="https://www.google.com/maps?q=Kanzul+Sports+Complex,+Warana+Rd,+Kalagedihena&z=17&output=embed"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, borderRadius: "1rem", minHeight: "180px" }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  </div>
+                  <div className="mt-2 text-center">
+                  <a
+                    href="https://maps.app.goo.gl/8CtEzyQWugouoMqu5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 underline text-sm"
+                  >
+                    Open in Google Maps
+                  </a>
                   </div>
                 </div>
-              </div>
             </TabsContent>
           </Tabs>
         </div>

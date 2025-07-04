@@ -108,38 +108,24 @@ export default function SearchResults() {
 
         {/* Map View */}
         <div className="relative h-64 bg-blue-200 mx-4 mt-4 rounded-2xl overflow-hidden">
-          {/* Map placeholder with sample location pins */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-300 to-blue-500 opacity-80" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-white">
+          {/* Google Map iframe for Kanzul Sport Complex */}
+          <iframe
+            title="Google Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126743.1162743628!2d80.026436!3d7.144993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f8b7e2d7b8b1%3A0x8b2e8e8e8e8e8e8e!2sKanzul%20Sport%20Complex!5e0!3m2!1sen!2slk!4v1710000000000!5m2!1sen!2slk"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen={true}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="absolute inset-0 w-full h-full"
+          />
+          {/* Overlay for pin and label */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="text-center text-white drop-shadow-lg">
               <MapPin className="w-8 h-8 mx-auto mb-2" />
-              <p className="text-sm font-medium">Map View</p>
-            </div>
-          </div>
-
-          {/* Sample venue pin with popup */}
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2">
-            <div className="bg-white rounded-lg shadow-lg p-3 max-w-xs">
-              <div className="flex gap-3">
-                <img
-                  src={venues[0].image}
-                  alt={venues[0].name}
-                  className="w-12 h-12 rounded-lg object-cover"
-                />
-                <div>
-                  <h3 className="font-semibold text-sm text-gray-900">
-                    {venues[0].name}
-                  </h3>
-                  <p className="text-xs text-gray-500">{venues[0].address}</p>
-                  <div className="flex items-center gap-1 mt-1">
-                    <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                    <span className="text-xs font-medium">
-                      {venues[0].rating}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white" />
+              <p className="text-sm font-medium">Kanzul Sport Complex</p>
+              <p className="text-xs">Nittambuwa, Sri Lanka</p>
             </div>
           </div>
         </div>
