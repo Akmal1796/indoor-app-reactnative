@@ -220,7 +220,7 @@ const Notifications = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4 sticky top-0 z-10">
+      <div className="bg-green-600 text-white p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
@@ -441,7 +441,7 @@ const Notifications = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#4827EC] text-white p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
         <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
             <Calendar className="h-6 w-6 mx-auto mb-1" />
