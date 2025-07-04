@@ -10,14 +10,19 @@ import {
   Ticket,
   Settings,
   Headphones,
+  Calendar,
+  List,
+  Search,
+  Home,
+  User,
 } from "lucide-react";
 
 export default function Profile() {
   const user = {
-    name: "Ashley Robinson",
-    email: "onlybrianwhite@yahoo.com",
+    name: "Mohamed Saman",
+    email: "saman@webxkey.com",
     avatar:
-      "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Facf91b9d57e64a92b0af763ffa7de4af?format=webp&width=800",
+      "https://media.licdn.com/dms/image/v2/D4E03AQGzhtrV6TYsQw/profile-displayphoto-shrink_200_200/B4EZT0AQtOGwAY-/0/1739260497870?e=2147483647&v=beta&t=73gqVUf1rElwvWbBzZHyEvlDgYQSmGbp4057lItAy5g",
     bio: "Nisi ipsum officia consequat ea in non eiusmod eu. Reprehenderit et exercitation dolore pariatur dolor id aliquip amet nisi laboris.",
   };
 
@@ -57,25 +62,25 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-primary text-white p-4">
+      <div className="bg-green-600 text-white p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm opacity-80">Your Location</p>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                Alijinna Mawatha Thihariya
-              </span>
-            </div>
+        <p className="text-sm opacity-80">Your Location</p>
+        <div className="flex items-center gap-2">
+          <MapPin className="w-4 h-4" />
+          <span className="text-sm font-medium">
+            Alijinna Mawatha Thihariya
+          </span>
+        </div>
           </div>
           <Button
-            size="sm"
-            variant="ghost"
-            className="bg-primary/30 text-white"
+        size="sm"
+        variant="ghost"
+        className="bg-green-700 text-white"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-            </svg>
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+        </svg>
           </Button>
         </div>
       </div>
@@ -148,61 +153,33 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-primary px-4 py-2">
-        <div className="flex items-center justify-center relative">
-          <div className="bg-white rounded-full p-3 shadow-lg">
-            <Link to="/dashboard">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-        <div className="flex justify-around items-center mt-2">
+     {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
+        <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-            </svg>
+            <Calendar className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">History</span>
           </Link>
           <Link to="/feed" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5S5 9.329 5 8.5zM9 9h2v1H9V9zm0-2.5h9v1H9v-1zM9 12h9v1H9v-1zm0 2.5h9v1H9v-1zM5 13.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 14.328 5 13.5zM5 18.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 19.328 5 18.5z" />
-            </svg>
+            <List className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Feed</span>
           </Link>
           <div className="text-center text-white">
-            {/* Center space for home button */}
+            <Link
+              to="/dashboard"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
+            >
+              <Home className="h-6 w-6" />
+            </Link>
           </div>
           <Link to="/search" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
+            <Search className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Search</span>
           </Link>
-          <div className="text-center text-white bg-white/20 rounded-full p-1">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
-          </div>
+          <Link to="/profile" className="text-center text-white">
+            <User className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Profile</span>
+          </Link>
         </div>
       </div>
     </div>

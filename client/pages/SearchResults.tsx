@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, Search, Filter, MapPin, Star, X } from "lucide-react";
+import { ChevronLeft, Search, Filter, MapPin, Star, X, Calendar, List, Home, User } from "lucide-react";
 
 export default function SearchResults() {
   const [searchQuery, setSearchQuery] = useState("Thihariya");
@@ -32,25 +32,25 @@ export default function SearchResults() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-primary text-white p-4">
+      <div className="bg-green-600 text-white p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm opacity-80">Your Location</p>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                Alijinna Mawatha Thihariya
-              </span>
-            </div>
+        <p className="text-sm opacity-80">Your Location</p>
+        <div className="flex items-center gap-2">
+          <MapPin className="w-4 h-4" />
+          <span className="text-sm font-medium">
+            Alijinna Mawatha Thihariya
+          </span>
+        </div>
           </div>
           <Button
-            size="sm"
-            variant="ghost"
-            className="bg-primary/30 text-white"
+        size="sm"
+        variant="ghost"
+        className="bg-green-700 text-white"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-            </svg>
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+        </svg>
           </Button>
         </div>
       </div>
@@ -108,38 +108,24 @@ export default function SearchResults() {
 
         {/* Map View */}
         <div className="relative h-64 bg-blue-200 mx-4 mt-4 rounded-2xl overflow-hidden">
-          {/* Map placeholder with sample location pins */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-300 to-blue-500 opacity-80" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-white">
+          {/* Google Map iframe for Kanzul Sport Complex */}
+          <iframe
+            title="Google Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126743.1162743628!2d80.026436!3d7.144993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f8b7e2d7b8b1%3A0x8b2e8e8e8e8e8e8e!2sKanzul%20Sport%20Complex!5e0!3m2!1sen!2slk!4v1710000000000!5m2!1sen!2slk"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen={true}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="absolute inset-0 w-full h-full"
+          />
+          {/* Overlay for pin and label */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="text-center text-white drop-shadow-lg">
               <MapPin className="w-8 h-8 mx-auto mb-2" />
-              <p className="text-sm font-medium">Map View</p>
-            </div>
-          </div>
-
-          {/* Sample venue pin with popup */}
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2">
-            <div className="bg-white rounded-lg shadow-lg p-3 max-w-xs">
-              <div className="flex gap-3">
-                <img
-                  src={venues[0].image}
-                  alt={venues[0].name}
-                  className="w-12 h-12 rounded-lg object-cover"
-                />
-                <div>
-                  <h3 className="font-semibold text-sm text-gray-900">
-                    {venues[0].name}
-                  </h3>
-                  <p className="text-xs text-gray-500">{venues[0].address}</p>
-                  <div className="flex items-center gap-1 mt-1">
-                    <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                    <span className="text-xs font-medium">
-                      {venues[0].rating}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white" />
+              <p className="text-sm font-medium">Kanzul Sport Complex</p>
+              <p className="text-xs">Nittambuwa, Sri Lanka</p>
             </div>
           </div>
         </div>
@@ -204,59 +190,31 @@ export default function SearchResults() {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-primary px-4 py-2">
-        <div className="flex items-center justify-center relative">
-          <div className="bg-white rounded-full p-3 shadow-lg">
-            <Link to="/dashboard">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-        <div className="flex justify-around items-center mt-2">
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
+        <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-            </svg>
+            <Calendar className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">History</span>
           </Link>
           <Link to="/feed" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5S5 9.329 5 8.5zM9 9h2v1H9V9zm0-2.5h9v1H9v-1zM9 12h9v1H9v-1zm0 2.5h9v1H9v-1zM5 13.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 14.328 5 13.5zM5 18.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 19.328 5 18.5z" />
-            </svg>
+            <List className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Feed</span>
           </Link>
           <div className="text-center text-white">
-            {/* Center space for home button */}
-          </div>
-          <div className="text-center text-white bg-white/20 rounded-full p-1">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+            <Link
+              to="/dashboard"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
             >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
+              <Home className="h-6 w-6" />
+            </Link>
           </div>
+          <Link to="/search" className="text-center text-white">
+            <Search className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Search</span>
+          </Link>
           <Link to="/profile" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
+            <User className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Profile</span>
           </Link>
         </div>
       </div>

@@ -414,7 +414,7 @@ const ProfileEdit = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#4827EC] text-white p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
         <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
             <Calendar className="h-6 w-6 mx-auto mb-1" />
@@ -427,7 +427,7 @@ const ProfileEdit = () => {
           <div className="text-center text-white">
             <Link
               to="/dashboard"
-              className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
             >
               <Home className="h-6 w-6" />
             </Link>

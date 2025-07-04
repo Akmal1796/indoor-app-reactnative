@@ -8,13 +8,19 @@ import {
   CheckCircle,
   Download,
   Share2,
+  Calendar,
+  User,
+  Search,
+  Home,
+  List,
 } from "lucide-react";
 
 interface BookingData {
   game: { name: string; price: string };
   date: Date;
-  time: string;
+  time: string[]; // now an array
   venue: string;
+  total: number; // new field
 }
 
 export default function BookingSummary() {
@@ -51,6 +57,38 @@ export default function BookingSummary() {
     });
   };
 
+  function mergeTimeSlots(slots: string[]) {
+    if (!slots || slots.length === 0) return [];
+    const ranges = slots
+      .map(slot => {
+        const [start, end] = slot.split(" - ");
+        const to24 = (t: string) => {
+          const [time, ampm] = t.split(" ");
+          let [h, m] = time.split(":").map(Number);
+          if (ampm === "PM" && h !== 12) h += 12;
+          if (ampm === "AM" && h === 12) h = 0;
+          return h * 60 + m;
+        };
+        return { start, end, startMins: to24(start), endMins: to24(end) };
+      })
+      .sort((a, b) => a.startMins - b.startMins);
+
+    const merged: { start: string; end: string }[] = [];
+    let curr = { ...ranges[0] };
+
+    for (let i = 1; i < ranges.length; i++) {
+      if (curr.endMins === ranges[i].startMins) {
+        curr.end = ranges[i].end;
+        curr.endMins = ranges[i].endMins;
+      } else {
+        merged.push({ start: curr.start, end: curr.end });
+        curr = { ...ranges[i] };
+      }
+    }
+    merged.push({ start: curr.start, end: curr.end });
+    return merged.map(r => `${r.start} - ${r.end}`);
+  }
+
   if (!bookingData) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -67,25 +105,25 @@ export default function BookingSummary() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-primary text-white p-4">
+      <div className="bg-green-600 text-white p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm opacity-80">Your Location</p>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                Alijinna Mawatha Thihariya
-              </span>
-            </div>
+        <p className="text-sm opacity-80">Your Location</p>
+        <div className="flex items-center gap-2">
+          <MapPin className="w-4 h-4" />
+          <span className="text-sm font-medium">
+            Alijinna Mawatha Thihariya
+          </span>
+        </div>
           </div>
           <Button
-            size="sm"
-            variant="ghost"
-            className="bg-primary/30 text-white"
+        size="sm"
+        variant="ghost"
+        className="bg-green-700 text-white"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-            </svg>
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+        </svg>
           </Button>
         </div>
       </div>
@@ -103,95 +141,100 @@ export default function BookingSummary() {
         )}
 
         {!showQR ? (
-          <div className="space-y-6">
+            <div className="space-y-6">
             {/* Page Title */}
             <div className="text-center">
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                Booking Summary
+              Booking Summary
               </h1>
               <p className="text-gray-600">
-                Please review your booking details
+              Please review your booking details
               </p>
             </div>
 
             {/* Booking Details Card */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg text-gray-900">
-                  Booking Details
-                </CardTitle>
+              <CardTitle className="text-lg text-gray-900">
+                Booking Details
+              </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Booking ID:</span>
-                  <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded">
-                    {bookingId}
-                  </span>
-                </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-gray-600">Booking ID:</span>
+                <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded">
+                {bookingId}
+                </span>
+              </div>
 
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Venue:</span>
-                  <span className="font-medium">{bookingData.venue}</span>
-                </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-gray-600">Venue:</span>
+                <span className="font-medium">{bookingData.venue}</span>
+              </div>
 
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Game:</span>
-                  <span className="font-medium">{bookingData.game.name}</span>
-                </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-gray-600">Game:</span>
+                <span className="font-medium">{bookingData.game.name}</span>
+              </div>
 
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Date:</span>
-                  <span className="font-medium">
-                    {bookingData.date.toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-gray-600">Date:</span>
+                <span className="font-medium">
+                {bookingData.date.toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+                </span>
+              </div>
 
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Time:</span>
-                  <span className="font-medium">{bookingData.time}</span>
-                </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-gray-600">Time:</span>
+                <span className="font-medium">
+                {Array.isArray(bookingData.time)
+                  ? mergeTimeSlots(bookingData.time).join(", ")
+                  : bookingData.time}
+                </span>
+              </div>
 
-                <div className="flex justify-between items-center py-3 border-t border-gray-200">
-                  <span className="text-lg font-semibold">Total Amount:</span>
-                  <span className="text-xl font-bold text-primary">
-                    {bookingData.game.price}/hour
-                  </span>
-                </div>
+              <div className="flex justify-between items-center py-3 border-t border-gray-200">
+                <span className="text-lg font-semibold">Total Amount:</span>
+                <span className="text-xl font-bold text-primary">
+                LKR {bookingData.total}.00
+                </span>
+              </div>
               </CardContent>
             </Card>
 
             {/* Terms and Conditions */}
             <Card className="bg-blue-50 border-blue-200">
               <CardContent className="pt-6">
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-blue-900">
-                    Terms & Conditions:
-                  </h3>
-                  <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• Cancellation allowed up to 2 hours before booking</li>
-                    <li>
-                      • Please arrive 10 minutes before your scheduled time
-                    </li>
-                    <li>• Valid ID required for verification</li>
-                    <li>• Additional charges apply for overtime</li>
-                  </ul>
-                </div>
+              <div className="space-y-2">
+                <h3 className="font-semibold text-blue-900">
+                Terms & Conditions:
+                </h3>
+                <ul className="text-sm text-blue-800 space-y-1">
+                <li>• Cancellation allowed up to 2 hours before booking</li>
+                <li>
+                  • Please arrive 10 minutes before your scheduled time
+                </li>
+                <li>• Valid ID required for verification</li>
+                <li>• Additional charges apply for overtime</li>
+                </ul>
+              </div>
               </CardContent>
             </Card>
 
             {/* Confirm Button */}
             <Button
               onClick={handleConfirmBooking}
-              className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl text-lg font-medium"
+              className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl text-lg font-medium mb-2"
             >
               Confirm Booking
             </Button>
-          </div>
+            <div className="mb-8" />
+            </div>
         ) : (
           <div className="space-y-6">
             {/* Success Message */}
@@ -272,60 +315,32 @@ export default function BookingSummary() {
         )}
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-primary px-4 py-2">
-        <div className="flex items-center justify-center relative">
-          <div className="bg-white rounded-full p-3 shadow-lg">
-            <Link to="/dashboard">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-        <div className="flex justify-around items-center mt-2">
+    {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
+        <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-            </svg>
+            <Calendar className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">History</span>
           </Link>
           <Link to="/feed" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5S5 9.329 5 8.5zM9 9h2v1H9V9zm0-2.5h9v1H9v-1zM9 12h9v1H9v-1zm0 2.5h9v1H9v-1zM5 13.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 14.328 5 13.5zM5 18.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 19.328 5 18.5z" />
-            </svg>
+            <List className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Feed</span>
           </Link>
           <div className="text-center text-white">
-            {/* Center space for home button */}
+            <Link
+              to="/dashboard"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
+            >
+              <Home className="h-6 w-6" />
+            </Link>
           </div>
           <Link to="/search" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
+            <Search className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Search</span>
           </Link>
           <Link to="/profile" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
+            <User className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Profile</span>
           </Link>
         </div>
       </div>

@@ -159,7 +159,7 @@ const Messages = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
       {/* Header */}
-      <div className="bg-[#4827EC] text-white p-4 sticky top-0 z-10">
+      <div className="bg-green-600 text-white p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
@@ -312,9 +312,9 @@ const Messages = () => {
                               {conversation.timestamp}
                             </span>
                             {conversation.unread > 0 && (
-                              <Badge className="bg-[#4827EC] text-white min-w-[20px] h-5 text-xs flex items-center justify-center rounded-full">
+                                <Badge className="bg-green-600 text-white min-w-[20px] h-5 text-xs flex items-center justify-center rounded-full">
                                 {conversation.unread}
-                              </Badge>
+                                </Badge>
                             )}
                           </div>
                         </div>
@@ -352,21 +352,21 @@ const Messages = () => {
                     )}
                     <div
                       className={`rounded-2xl px-4 py-2 ${
-                        message.isMe
-                          ? "bg-[#4827EC] text-white rounded-br-md"
-                          : "bg-white text-gray-800 rounded-bl-md border"
+                      message.isMe
+                        ? "bg-green-600 text-white rounded-br-md"
+                        : "bg-white text-gray-800 rounded-bl-md border"
                       }`}
                     >
                       <p className="text-sm">{message.message}</p>
                       <div
-                        className={`flex items-center gap-1 mt-1 text-xs ${
-                          message.isMe ? "text-white/80" : "text-gray-500"
-                        }`}
+                      className={`flex items-center gap-1 mt-1 text-xs ${
+                        message.isMe ? "text-white/80" : "text-gray-500"
+                      }`}
                       >
-                        <span>{message.timestamp}</span>
-                        {message.isMe && message.status === "read" && (
-                          <CheckCheck className="h-3 w-3" />
-                        )}
+                      <span>{message.timestamp}</span>
+                      {message.isMe && message.status === "read" && (
+                        <CheckCheck className="h-3 w-3" />
+                      )}
                       </div>
                     </div>
                   </div>
@@ -403,7 +403,7 @@ const Messages = () => {
                 <Button
                   onClick={handleSendMessage}
                   disabled={!newMessage.trim()}
-                  className="bg-[#4827EC] hover:bg-[#3d1fb8] p-2"
+                  className="bg-green-600 hover:bg-green-700 p-2"
                 >
                   <Send className="h-5 w-5" />
                 </Button>
@@ -416,17 +416,17 @@ const Messages = () => {
       {/* Back Button for Chat */}
       {activeChat && (
         <div className="fixed bottom-20 left-4 z-10">
-          <Button
+            <Button
             onClick={() => setActiveChat(null)}
-            className="bg-white text-[#4827EC] border border-[#4827EC] hover:bg-gray-50 rounded-full p-3 shadow-lg"
-          >
+            className="bg-green-600 text-white border border-green-600 hover:bg-green-700 rounded-full p-3 shadow-lg"
+            >
             <ArrowLeft className="h-5 w-5" />
-          </Button>
+            </Button>
         </div>
       )}
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#4827EC] text-white p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
         <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
             <Calendar className="h-6 w-6 mx-auto mb-1" />
@@ -439,7 +439,7 @@ const Messages = () => {
           <div className="text-center text-white">
             <Link
               to="/dashboard"
-              className="bg-white text-[#4827EC] rounded-full p-3 inline-block"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
             >
               <Home className="h-6 w-6" />
             </Link>

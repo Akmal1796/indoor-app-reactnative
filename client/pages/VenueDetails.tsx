@@ -13,6 +13,10 @@ import {
   Droplets,
   Trophy,
   Plus,
+  Calendar,
+  Home,
+  List,
+  Search,
 } from "lucide-react";
 
 export default function VenueDetails() {
@@ -29,9 +33,9 @@ export default function VenueDetails() {
     id: 1,
     name: "Kanzul Sports Complex",
     image:
-      "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Facf91b9d57e64a92b0af763ffa7de4af?format=webp&width=800",
+      "https://caavl.com/storage/files/lk/1926/thumb-816x460-487a8ca23f14c980894df937a151e030.jpg",
     rating: 4.5,
-    reviews: 1240,
+    reviewsCount: 1240,
     address: "6315 N. Warana Road Thihariya",
     location: "Kalagedihena",
     monthlyRate: "$11,049/month",
@@ -41,34 +45,35 @@ export default function VenueDetails() {
         name: "Football/Soccer",
         price: "1300",
         image:
-          "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2F0bacbc64bb404aeca69c29763fb711dc?format=webp&width=800",
+      "https://www.nbc.com/sites/nbcblog/files/2024/07/paris-2024-olympics-soccer.jpg",
       },
       {
         id: 2,
         name: "Tennis",
         price: "800",
         image:
-          "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Fdbcca683e07c494d924bd65f9758ccc4?format=webp&width=800",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9s7Zsas3Ee0grv_PPcI4yznWl4TduWjCe8w&s",
       },
       {
         id: 3,
         name: "Pool/Billiards",
         price: "300",
         image:
-          "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Ff58781d0f81e400faa3d1d38ee6d02b6?format=webp&width=800",
+      "https://cdn.britannica.com/73/80573-050-A596D085/Billiard-balls-table.jpg",
       },
       {
         id: 4,
         name: "Table Tennis",
         price: "500",
         image:
-          "https://cdn.builder.io/o/assets%2F9182c3ca263146469688dd4c08fe07e2%2Ff91469ac63f24930aa89a8bb451456e9?alt=media&token=45f3211f-8df6-406f-a448-a73a66e08a85&apiKey=9182c3ca263146469688dd4c08fe07e2",
+          "https://www.paralympic.org/sites/default/files/styles/large_original/public/images/150413103127066_LON_0109_4685.jpg?itok=rgvvqm0F",
       },
     ],
     gallery: [
-      "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Facf91b9d57e64a92b0af763ffa7de4af?format=webp&width=800",
-      "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2F346236e223bd4bddb7217ef84f427303?format=webp&width=800",
-      "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2F0bacbc64bb404aeca69c29763fb711dc?format=webp&width=800",
+      "https://caavl.com/storage/files/lk/1926/thumb-816x460-487a8ca23f14c980894df937a151e030.jpg",
+      "https://caavl.com/storage/files/lk/1926/thumb-816x460-487a8ca23f14c980894df937a151e030.jpg",
+      "https://caavl.com/storage/files/lk/1928/thumb-816x460-6feaf76aff9cd80dcff6b389660e36ba.jpeg",
+      "https://caavl.com/storage/files/lk/1928/thumb-816x460-6feaf76aff9cd80dcff6b389660e36ba.jpeg",
     ],
     reviews: [
       {
@@ -76,7 +81,7 @@ export default function VenueDetails() {
         name: "Ahmd Arkam",
         location: "Thihariya",
         avatar:
-          "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2Facf91b9d57e64a92b0af763ffa7de4af?format=webp&width=800",
+          "https://media.licdn.com/dms/image/v2/D4E03AQGzhtrV6TYsQw/profile-displayphoto-shrink_200_200/B4EZT0AQtOGwAY-/0/1739260497870?e=2147483647&v=beta&t=73gqVUf1rElwvWbBzZHyEvlDgYQSmGbp4057lItAy5g",
         comment:
           "Emma Grace is a passionate Listing Agent, known for her in-depth consulting skills and understanding of the real estate market. She is dedicated to helping clients find and sell homes, providing optimal solutions to achieve their goals.",
       },
@@ -85,7 +90,7 @@ export default function VenueDetails() {
         name: "Mohmd Akmal",
         location: "Kahatowita",
         avatar:
-          "https://cdn.builder.io/api/v1/image/assets%2F9182c3ca263146469688dd4c08fe07e2%2F346236e223bd4bddb7217ef84f427303?format=webp&width=800",
+          "https://media.licdn.com/dms/image/v2/D4E03AQGzhtrV6TYsQw/profile-displayphoto-shrink_200_200/B4EZT0AQtOGwAY-/0/1739260497870?e=2147483647&v=beta&t=73gqVUf1rElwvWbBzZHyEvlDgYQSmGbp4057lItAy5g",
         comment:
           "Great facilities and excellent customer service. The sports complex is well-maintained and offers a variety of activities.",
       },
@@ -95,23 +100,23 @@ export default function VenueDetails() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-primary text-white p-4">
+      <div className="bg-green-600 text-white p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm opacity-80">Your Location</p>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm font-medium">San Francisco, CA</span>
-            </div>
+        <p className="text-sm opacity-80">Your Location</p>
+        <div className="flex items-center gap-2">
+          <MapPin className="w-4 h-4" />
+          <span className="text-sm font-medium">San Francisco, CA</span>
+        </div>
           </div>
           <Button
-            size="sm"
-            variant="ghost"
-            className="bg-primary/30 text-white"
+        size="sm"
+        variant="ghost"
+        className="bg-green-700 text-white"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-            </svg>
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+        </svg>
           </Button>
         </div>
       </div>
@@ -145,7 +150,7 @@ export default function VenueDetails() {
             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
             <span className="text-sm font-medium">{venue.rating}</span>
             <span className="text-xs text-gray-500">
-              ({venue.reviews.toLocaleString()} reviews)
+              ({venue.reviewsCount.toLocaleString()} reviews)
             </span>
           </div>
 
@@ -212,6 +217,7 @@ export default function VenueDetails() {
                           Rs {sport.price}
                         </div>
                         <div className="text-sm opacity-90">Per Hour</div>
+                        <div className="text-sm opacity-90">{sport.name}</div>
                       </div>
                     </div>
                   </Link>
@@ -307,17 +313,33 @@ export default function VenueDetails() {
                 </div>
               </div>
 
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
                   Location
-                </h2>
-                <div className="bg-gray-200 rounded-2xl h-48 flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <MapPin className="w-8 h-8 mx-auto mb-2" />
-                    <p className="text-sm">Map View</p>
+                  </h2>
+                  <div className="bg-gray-200 rounded-2xl h-48 flex items-center justify-center overflow-hidden">
+                  <iframe
+                    title="Venue Location"
+                    src="https://www.google.com/maps?q=Kanzul+Sports+Complex,+Warana+Rd,+Kalagedihena&z=17&output=embed"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, borderRadius: "1rem", minHeight: "180px" }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  </div>
+                  <div className="mt-2 text-center">
+                  <a
+                    href="https://maps.app.goo.gl/8CtEzyQWugouoMqu5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 underline text-sm"
+                  >
+                    Open in Google Maps
+                  </a>
                   </div>
                 </div>
-              </div>
             </TabsContent>
           </Tabs>
         </div>
@@ -360,60 +382,32 @@ export default function VenueDetails() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-primary px-4 py-2">
-        <div className="flex items-center justify-center relative">
-          <div className="bg-white rounded-full p-3 shadow-lg">
-            <Link to="/dashboard">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-        <div className="flex justify-around items-center mt-2">
+    {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4">
+        <div className="flex items-center justify-around">
           <Link to="/booking-history" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-            </svg>
+            <Calendar className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">History</span>
           </Link>
           <Link to="/feed" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5S5 9.329 5 8.5zM9 9h2v1H9V9zm0-2.5h9v1H9v-1zM9 12h9v1H9v-1zm0 2.5h9v1H9v-1zM5 13.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 14.328 5 13.5zM5 18.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5-.672 1.5-1.5 1.5S5 19.328 5 18.5z" />
-            </svg>
+            <List className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Feed</span>
           </Link>
           <div className="text-center text-white">
-            {/* Center space for home button */}
+            <Link
+              to="/dashboard"
+              className="bg-white text-green-600 rounded-full p-3 inline-block"
+            >
+              <Home className="h-6 w-6" />
+            </Link>
           </div>
           <Link to="/search" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
+            <Search className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Search</span>
           </Link>
           <Link to="/profile" className="text-center text-white">
-            <svg
-              className="w-5 h-5 mx-auto mb-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
+            <Users className="h-6 w-6 mx-auto mb-1" />
+            <span className="text-xs">Profile</span>
           </Link>
         </div>
       </div>
