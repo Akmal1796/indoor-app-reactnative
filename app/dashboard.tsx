@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   SafeAreaView,
+  StyleSheet,
 } from "react-native";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -45,104 +46,65 @@ export default function Dashboard() {
     },
   ];
 
-  const newsItems = [
-    {
-      id: 1,
-      title: "Local Cricket Tournament Starts This Weekend",
-      excerpt:
-        "Inter-district cricket tournament featuring 16 teams from across Colombo region.",
-      image:
-        "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=300&h=180&fit=crop",
-      category: "Cricket",
-      timestamp: "2 hours ago",
-      venue: "Multiple Venues",
-      isLive: false,
-    },
-    {
-      id: 2,
-      title: "New Badminton Courts Open at SportZone",
-      excerpt:
-        "State-of-the-art facilities with professional lighting now available for booking.",
-      image:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=180&fit=crop",
-      category: "Badminton",
-      timestamp: "4 hours ago",
-      venue: "SportZone Complex",
-      isLive: false,
-    },
-    {
-      id: 3,
-      title: "Live: Football Championship Final",
-      excerpt:
-        "Thunder FC vs Lightning United - Championship final now streaming live.",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=180&fit=crop",
-      category: "Football",
-      timestamp: "Live",
-      venue: "National Stadium",
-      isLive: true,
-    },
-  ];
-
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
+    <SafeAreaView style={styles.container}>
       <StatusBar style="light" backgroundColor="#4827EC" />
 
       {/* Header */}
-      <View className="bg-primary p-4">
-        <View className="flex-row items-center justify-between">
+      <View style={styles.header}>
+        <View style={styles.headerRow}>
           {/* Left Column - Logo */}
-          <View className="flex-row items-center gap-2">
-            <View className="w-8 h-8 bg-white rounded-full items-center justify-center">
-              <Text className="text-primary text-lg font-bold">I</Text>
+          <View style={styles.logoSection}>
+            <View style={styles.logoIcon}>
+              <Text style={styles.logoText}>I</Text>
             </View>
-            <Text className="text-white text-lg font-semibold">IndoorB</Text>
+            <Text style={styles.logoTitle}>IndoorB</Text>
           </View>
 
           {/* Right Column - Message and Notification Buttons */}
-          <View className="flex-row items-center gap-2">
+          <View style={styles.headerButtons}>
             <TouchableOpacity
               onPress={() => router.push("/messages")}
-              className="bg-white/20 p-2 rounded-lg"
+              style={styles.headerButton}
             >
               <Ionicons name="chatbubble-outline" size={20} color="white" />
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => router.push("/notifications")}
-              className="bg-white/20 p-2 rounded-lg relative"
+              style={[styles.headerButton, styles.notificationButton]}
             >
               <Ionicons name="notifications-outline" size={20} color="white" />
-              <View className="absolute -top-1 -right-1 bg-red-500 w-4 h-4 rounded-full items-center justify-center">
-                <Text className="text-white text-xs">3</Text>
+              <View style={styles.notificationBadge}>
+                <Text style={styles.notificationBadgeText}>3</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
       </View>
 
-      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-        <View className="px-4 pb-20">
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.content}>
           {/* Search */}
-          <View className="relative -mt-6 mb-6">
-            <View className="bg-white rounded-2xl shadow-sm border p-4">
-              <View className="relative">
+          <View style={styles.searchContainer}>
+            <View style={styles.searchCard}>
+              <View style={styles.searchInputContainer}>
                 <Ionicons
                   name="search"
                   size={20}
                   color="#4827EC"
-                  style={{ position: "absolute", left: 12, top: 12, zIndex: 1 }}
+                  style={styles.searchIcon}
                 />
                 <TextInput
                   placeholder="Search Complex, Sports etc"
                   value={searchQuery}
                   onChangeText={setSearchQuery}
-                  className="pl-12 pr-12 h-12 border border-gray-200 rounded-xl text-base"
+                  style={styles.searchInput}
                 />
-                <TouchableOpacity
-                  style={{ position: "absolute", right: 8, top: 8 }}
-                  className="p-2"
-                >
+                <TouchableOpacity style={styles.filterButton}>
                   <Ionicons name="options-outline" size={20} color="#4827EC" />
                 </TouchableOpacity>
               </View>
@@ -153,217 +115,109 @@ export default function Dashboard() {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            className="mb-6"
-            contentContainerStyle={{ paddingHorizontal: 0 }}
+            style={styles.categoriesContainer}
+            contentContainerStyle={styles.categoriesContent}
           >
-            <View className="flex-row gap-2">
-              {categories.map((category) => (
-                <TouchableOpacity
-                  key={category.name}
-                  className={`px-4 py-2 rounded-full ${
-                    category.active
-                      ? "bg-green-100 border border-secondary"
-                      : "bg-gray-100 border border-gray-200"
-                  }`}
+            {categories.map((category) => (
+              <TouchableOpacity
+                key={category.name}
+                style={[
+                  styles.categoryButton,
+                  category.active && styles.activeCategoryButton,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.categoryText,
+                    category.active && styles.activeCategoryText,
+                  ]}
                 >
-                  <Text
-                    className={`text-sm font-medium ${
-                      category.active ? "text-secondary" : "text-gray-700"
-                    }`}
-                  >
-                    {category.name}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+                  {category.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
 
           {/* Nearby Section */}
-          <View className="mb-8">
-            <View className="flex-row items-center justify-between mb-4">
-              <Text className="text-lg font-semibold text-gray-900">
-                Nearby
-              </Text>
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Nearby</Text>
               <TouchableOpacity onPress={() => router.push("/search")}>
-                <Text className="text-sm text-secondary font-medium">
-                  See all
-                </Text>
+                <Text style={styles.seeAllText}>See all</Text>
               </TouchableOpacity>
             </View>
 
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingRight: 16 }}
+              contentContainerStyle={styles.venuesContent}
             >
-              <View className="flex-row gap-4">
-                {venues.concat(venues).map((venue, index) => (
-                  <TouchableOpacity
-                    key={`${venue.id}-${index}`}
-                    onPress={() => router.push(`/venue/${venue.id}`)}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border w-72"
-                  >
-                    <View className="relative">
-                      <Image
-                        source={{ uri: venue.image }}
-                        className="w-full h-48"
-                        resizeMode="cover"
-                      />
-                      <TouchableOpacity className="absolute top-3 right-3 bg-black/20 p-2 rounded-full">
-                        <Ionicons
-                          name="heart-outline"
-                          size={16}
-                          color="white"
-                        />
-                      </TouchableOpacity>
+              {venues.concat(venues).map((venue, index) => (
+                <TouchableOpacity
+                  key={`${venue.id}-${index}`}
+                  onPress={() => router.push(`/venue/${venue.id}`)}
+                  style={styles.venueCard}
+                >
+                  <View style={styles.venueImageContainer}>
+                    <Image
+                      source={{ uri: venue.image }}
+                      style={styles.venueImage}
+                      resizeMode="cover"
+                    />
+                    <TouchableOpacity style={styles.heartButton}>
+                      <Ionicons name="heart-outline" size={16} color="white" />
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={styles.venueInfo}>
+                    <View style={styles.venueRating}>
+                      <Ionicons name="star" size={16} color="#FFC107" />
+                      <Text style={styles.ratingText}>{venue.rating}</Text>
+                      <Text style={styles.reviewText}>
+                        ({venue.reviews.toLocaleString()} reviews)
+                      </Text>
                     </View>
 
-                    <View className="p-4">
-                      <View className="flex-row items-center gap-2 mb-2">
-                        <Ionicons name="star" size={16} color="#FFC107" />
-                        <Text className="text-sm font-medium">
-                          {venue.rating}
+                    <Text style={styles.venueName}>{venue.name}</Text>
+                    <Text style={styles.venueAddress}>{venue.address}</Text>
+
+                    <View style={styles.venuePrices}>
+                      {venue.prices.map((price, index) => (
+                        <Text key={index} style={styles.priceText}>
+                          {price}
                         </Text>
-                        <Text className="text-xs text-gray-500">
-                          ({venue.reviews.toLocaleString()} reviews)
-                        </Text>
-                      </View>
-
-                      <Text className="font-semibold text-gray-900 mb-1">
-                        {venue.name}
-                      </Text>
-                      <Text className="text-xs text-gray-500 mb-3">
-                        {venue.address}
-                      </Text>
-
-                      <View className="flex-row items-center gap-4 mb-4">
-                        {venue.prices.map((price, index) => (
-                          <Text key={index} className="text-xs text-gray-700">
-                            {price}
-                          </Text>
-                        ))}
-                      </View>
-
-                      <TouchableOpacity
-                        onPress={() => router.push(`/venue/${venue.id}`)}
-                        className="bg-green-50 border border-secondary/20 p-3 rounded-xl"
-                      >
-                        <Text className="text-secondary text-center font-medium">
-                          Check Availability
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          </View>
-
-          {/* Recent Sports News */}
-          <View className="mb-8">
-            <View className="flex-row items-center justify-between mb-4">
-              <Text className="text-xl font-bold text-gray-900">
-                Recent Sports News
-              </Text>
-              <TouchableOpacity onPress={() => router.push("/feed")}>
-                <Text className="text-sm text-primary font-medium">
-                  View All
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingRight: 16 }}
-            >
-              <View className="flex-row gap-4">
-                {newsItems.map((news) => (
-                  <TouchableOpacity
-                    key={news.id}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border w-72"
-                  >
-                    <View className="relative">
-                      <Image
-                        source={{ uri: news.image }}
-                        className="w-full h-36"
-                        resizeMode="cover"
-                      />
-                      {news.isLive && (
-                        <View className="absolute top-3 left-3 bg-red-500 px-2 py-1 rounded-full flex-row items-center">
-                          <View className="w-2 h-2 bg-white rounded-full mr-1" />
-                          <Text className="text-white text-xs font-bold">
-                            LIVE
-                          </Text>
-                        </View>
-                      )}
-                      <View className="absolute top-3 right-3 bg-black/70 px-2 py-1 rounded">
-                        <Text className="text-white text-xs">
-                          {news.category}
-                        </Text>
-                      </View>
+                      ))}
                     </View>
 
-                    <View className="p-4">
-                      <Text
-                        className="font-semibold text-gray-900 text-sm mb-2"
-                        numberOfLines={2}
-                      >
-                        {news.title}
+                    <TouchableOpacity
+                      onPress={() => router.push(`/venue/${venue.id}`)}
+                      style={styles.checkAvailabilityButton}
+                    >
+                      <Text style={styles.checkAvailabilityText}>
+                        Check Availability
                       </Text>
-                      <Text
-                        className="text-xs text-gray-600 mb-3"
-                        numberOfLines={2}
-                      >
-                        {news.excerpt}
-                      </Text>
-
-                      <View className="flex-row items-center justify-between">
-                        <View className="flex-row items-center gap-1">
-                          <Ionicons
-                            name="location-outline"
-                            size={12}
-                            color="#6B7280"
-                          />
-                          <Text
-                            className="text-xs text-gray-500"
-                            numberOfLines={1}
-                          >
-                            {news.venue}
-                          </Text>
-                        </View>
-                        <Text
-                          className={`text-xs ${news.isLive ? "text-red-500 font-medium" : "text-gray-500"}`}
-                        >
-                          {news.timestamp}
-                        </Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </View>
+                    </TouchableOpacity>
+                  </View>
+                </TouchableOpacity>
+              ))}
             </ScrollView>
           </View>
 
           {/* Quick Actions */}
-          <View className="mb-8">
-            <Text className="text-lg font-semibold text-gray-900 mb-3">
-              Quick Actions
-            </Text>
-            <View className="flex-row gap-3">
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Quick Actions</Text>
+            <View style={styles.quickActions}>
               <TouchableOpacity
                 onPress={() => router.push("/feed")}
-                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4"
+                style={[styles.quickActionButton, styles.feedButton]}
               >
-                <View className="flex-row items-center gap-3">
-                  <View className="w-10 h-10 bg-white/20 rounded-full items-center justify-center">
-                    <Text className="text-lg">📰</Text>
+                <View style={styles.quickActionContent}>
+                  <View style={styles.quickActionIcon}>
+                    <Text style={styles.quickActionEmoji}>📰</Text>
                   </View>
-                  <View className="flex-1">
-                    <Text className="text-white font-semibold text-sm">
-                      Sports Feed
-                    </Text>
-                    <Text className="text-white/90 text-xs">
+                  <View style={styles.quickActionTextContainer}>
+                    <Text style={styles.quickActionTitle}>Sports Feed</Text>
+                    <Text style={styles.quickActionSubtitle}>
                       Latest updates & news
                     </Text>
                   </View>
@@ -372,17 +226,15 @@ export default function Dashboard() {
 
               <TouchableOpacity
                 onPress={() => router.push("/booking-history")}
-                className="flex-1 bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-4"
+                style={[styles.quickActionButton, styles.bookingButton]}
               >
-                <View className="flex-row items-center gap-3">
-                  <View className="w-10 h-10 bg-white/20 rounded-full items-center justify-center">
+                <View style={styles.quickActionContent}>
+                  <View style={styles.quickActionIcon}>
                     <Ionicons name="calendar-outline" size={20} color="white" />
                   </View>
-                  <View className="flex-1">
-                    <Text className="text-white font-semibold text-sm">
-                      My Bookings
-                    </Text>
-                    <Text className="text-white/90 text-xs">
+                  <View style={styles.quickActionTextContainer}>
+                    <Text style={styles.quickActionTitle}>My Bookings</Text>
+                    <Text style={styles.quickActionSubtitle}>
                       View your activity
                     </Text>
                   </View>
@@ -394,46 +246,350 @@ export default function Dashboard() {
       </ScrollView>
 
       {/* Bottom Navigation */}
-      <View className="absolute bottom-0 left-0 right-0 bg-primary p-4">
-        <View className="flex-row items-center justify-around">
+      <View style={styles.bottomNav}>
+        <TouchableOpacity
+          onPress={() => router.push("/booking-history")}
+          style={styles.navItem}
+        >
+          <Ionicons name="calendar-outline" size={24} color="white" />
+          <Text style={styles.navText}>History</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/feed")}
+          style={styles.navItem}
+        >
+          <Ionicons name="list-outline" size={24} color="white" />
+          <Text style={styles.navText}>Feed</Text>
+        </TouchableOpacity>
+        <View style={styles.navItem}>
           <TouchableOpacity
-            onPress={() => router.push("/booking-history")}
-            className="items-center"
+            onPress={() => router.push("/dashboard")}
+            style={styles.homeButton}
           >
-            <Ionicons name="calendar-outline" size={24} color="white" />
-            <Text className="text-white text-xs mt-1">History</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.push("/feed")}
-            className="items-center"
-          >
-            <Ionicons name="list-outline" size={24} color="white" />
-            <Text className="text-white text-xs mt-1">Feed</Text>
-          </TouchableOpacity>
-          <View className="items-center">
-            <TouchableOpacity
-              onPress={() => router.push("/dashboard")}
-              className="bg-white rounded-full p-3"
-            >
-              <Ionicons name="home" size={24} color="#4827EC" />
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            onPress={() => router.push("/search")}
-            className="items-center"
-          >
-            <Ionicons name="search-outline" size={24} color="white" />
-            <Text className="text-white text-xs mt-1">Search</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.push("/profile")}
-            className="items-center"
-          >
-            <Ionicons name="person-outline" size={24} color="white" />
-            <Text className="text-white text-xs mt-1">Profile</Text>
+            <Ionicons name="home" size={24} color="#4827EC" />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          onPress={() => router.push("/search")}
+          style={styles.navItem}
+        >
+          <Ionicons name="search-outline" size={24} color="white" />
+          <Text style={styles.navText}>Search</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/profile")}
+          style={styles.navItem}
+        >
+          <Ionicons name="person-outline" size={24} color="white" />
+          <Text style={styles.navText}>Profile</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f9fafb",
+  },
+  header: {
+    backgroundColor: "#4827EC",
+    padding: 16,
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  logoSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  logoIcon: {
+    width: 32,
+    height: 32,
+    backgroundColor: "white",
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logoText: {
+    color: "#4827EC",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  logoTitle: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  headerButtons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  headerButton: {
+    backgroundColor: "rgba(255,255,255,0.2)",
+    padding: 8,
+    borderRadius: 8,
+  },
+  notificationButton: {
+    position: "relative",
+  },
+  notificationBadge: {
+    position: "absolute",
+    top: -4,
+    right: -4,
+    backgroundColor: "#ef4444",
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  notificationBadgeText: {
+    color: "white",
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  scrollView: {
+    flex: 1,
+  },
+  content: {
+    paddingHorizontal: 16,
+    paddingBottom: 80,
+  },
+  searchContainer: {
+    marginTop: -24,
+    marginBottom: 24,
+  },
+  searchCard: {
+    backgroundColor: "white",
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  searchInputContainer: {
+    position: "relative",
+  },
+  searchIcon: {
+    position: "absolute",
+    left: 12,
+    top: 12,
+    zIndex: 1,
+  },
+  searchInput: {
+    paddingLeft: 48,
+    paddingRight: 48,
+    height: 48,
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    borderRadius: 12,
+    fontSize: 16,
+  },
+  filterButton: {
+    position: "absolute",
+    right: 8,
+    top: 8,
+    padding: 8,
+  },
+  categoriesContainer: {
+    marginBottom: 24,
+  },
+  categoriesContent: {
+    paddingRight: 16,
+  },
+  categoryButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: "#f3f4f6",
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    marginRight: 8,
+  },
+  activeCategoryButton: {
+    backgroundColor: "#dcfce7",
+    borderColor: "#1DBF73",
+  },
+  categoryText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#374151",
+  },
+  activeCategoryText: {
+    color: "#1DBF73",
+  },
+  section: {
+    marginBottom: 32,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#1f2937",
+  },
+  seeAllText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#1DBF73",
+  },
+  venuesContent: {
+    paddingRight: 16,
+  },
+  venueCard: {
+    backgroundColor: "white",
+    borderRadius: 16,
+    overflow: "hidden",
+    width: 288,
+    marginRight: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  venueImageContainer: {
+    position: "relative",
+  },
+  venueImage: {
+    width: "100%",
+    height: 192,
+  },
+  heartButton: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    backgroundColor: "rgba(0,0,0,0.2)",
+    padding: 8,
+    borderRadius: 20,
+  },
+  venueInfo: {
+    padding: 16,
+  },
+  venueRating: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 8,
+  },
+  ratingText: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  reviewText: {
+    fontSize: 12,
+    color: "#6b7280",
+  },
+  venueName: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#1f2937",
+    marginBottom: 4,
+  },
+  venueAddress: {
+    fontSize: 12,
+    color: "#6b7280",
+    marginBottom: 12,
+  },
+  venuePrices: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+    marginBottom: 16,
+  },
+  priceText: {
+    fontSize: 12,
+    color: "#374151",
+  },
+  checkAvailabilityButton: {
+    backgroundColor: "#dcfce7",
+    borderWidth: 1,
+    borderColor: "rgba(29,191,115,0.2)",
+    padding: 12,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  checkAvailabilityText: {
+    color: "#1DBF73",
+    fontWeight: "500",
+  },
+  quickActions: {
+    flexDirection: "row",
+    gap: 12,
+  },
+  quickActionButton: {
+    flex: 1,
+    borderRadius: 12,
+    padding: 16,
+  },
+  feedButton: {
+    backgroundColor: "#3b82f6",
+  },
+  bookingButton: {
+    backgroundColor: "#10b981",
+  },
+  quickActionContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  quickActionIcon: {
+    width: 40,
+    height: 40,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  quickActionEmoji: {
+    fontSize: 18,
+  },
+  quickActionTextContainer: {
+    flex: 1,
+  },
+  quickActionTitle: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 14,
+  },
+  quickActionSubtitle: {
+    color: "rgba(255,255,255,0.9)",
+    fontSize: 12,
+  },
+  bottomNav: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#4827EC",
+    padding: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  navItem: {
+    alignItems: "center",
+  },
+  navText: {
+    color: "white",
+    fontSize: 12,
+    marginTop: 4,
+  },
+  homeButton: {
+    backgroundColor: "white",
+    borderRadius: 24,
+    padding: 12,
+  },
+});

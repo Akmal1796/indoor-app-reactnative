@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
@@ -18,64 +18,141 @@ export default function WelcomeScreen() {
   };
 
   return (
-    <View className="flex-1 bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <View style={styles.container}>
       <StatusBar style="dark" />
 
       {/* Content */}
-      <View className="flex-1 justify-center items-center px-8">
+      <View style={styles.content}>
         {/* Logo */}
-        <View className="mb-8">
-          <View className="w-24 h-24 bg-primary rounded-full items-center justify-center mb-4">
-            <Text className="text-white text-4xl font-bold">I</Text>
+        <View style={styles.logoSection}>
+          <View style={styles.logoContainer}>
+            <Text style={styles.logoText}>I</Text>
           </View>
-          <Text className="text-3xl font-bold text-gray-900 text-center">
-            IndoorB
-          </Text>
-          <Text className="text-lg text-gray-600 text-center mt-2">
-            Sports Booking Made Easy
-          </Text>
+          <Text style={styles.title}>IndoorB</Text>
+          <Text style={styles.subtitle}>Sports Booking Made Easy</Text>
         </View>
 
         {/* Features */}
-        <View className="mb-12 space-y-4">
-          <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-secondary rounded-full items-center justify-center mr-3">
-              <Text className="text-white text-sm">📅</Text>
+        <View style={styles.featuresSection}>
+          <View style={styles.featureRow}>
+            <View style={styles.featureIcon}>
+              <Text style={styles.emoji}>📅</Text>
             </View>
-            <Text className="text-gray-700">Book courts instantly</Text>
+            <Text style={styles.featureText}>Book courts instantly</Text>
           </View>
-          <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-secondary rounded-full items-center justify-center mr-3">
-              <Text className="text-white text-sm">👥</Text>
+          <View style={styles.featureRow}>
+            <View style={styles.featureIcon}>
+              <Text style={styles.emoji}>👥</Text>
             </View>
-            <Text className="text-gray-700">
+            <Text style={styles.featureText}>
               Connect with sports communities
             </Text>
           </View>
-          <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-secondary rounded-full items-center justify-center mr-3">
-              <Text className="text-white text-sm">🏆</Text>
+          <View style={styles.featureRow}>
+            <View style={styles.featureIcon}>
+              <Text style={styles.emoji}>🏆</Text>
             </View>
-            <Text className="text-gray-700">
+            <Text style={styles.featureText}>
               Track your sporting activities
             </Text>
           </View>
         </View>
 
         {/* CTA Button */}
-        <TouchableOpacity
-          onPress={handleGetStarted}
-          className="bg-primary px-8 py-4 rounded-2xl w-full"
-        >
-          <Text className="text-white text-lg font-semibold text-center">
-            Get Started
-          </Text>
+        <TouchableOpacity onPress={handleGetStarted} style={styles.ctaButton}>
+          <Text style={styles.ctaButtonText}>Get Started</Text>
         </TouchableOpacity>
 
-        <Text className="text-gray-500 text-sm text-center mt-4">
+        <Text style={styles.redirectText}>
           Redirecting to dashboard in 3 seconds...
         </Text>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f8fafc",
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 32,
+  },
+  logoSection: {
+    alignItems: "center",
+    marginBottom: 48,
+  },
+  logoContainer: {
+    width: 96,
+    height: 96,
+    backgroundColor: "#4827EC",
+    borderRadius: 48,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 16,
+  },
+  logoText: {
+    color: "white",
+    fontSize: 36,
+    fontWeight: "bold",
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#1f2937",
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "#6b7280",
+    textAlign: "center",
+    marginTop: 8,
+  },
+  featuresSection: {
+    marginBottom: 48,
+  },
+  featureRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  featureIcon: {
+    width: 32,
+    height: 32,
+    backgroundColor: "#1DBF73",
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 12,
+  },
+  emoji: {
+    fontSize: 14,
+  },
+  featureText: {
+    color: "#374151",
+    fontSize: 16,
+  },
+  ctaButton: {
+    backgroundColor: "#4827EC",
+    paddingHorizontal: 32,
+    paddingVertical: 16,
+    borderRadius: 16,
+    width: "100%",
+    alignItems: "center",
+  },
+  ctaButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  redirectText: {
+    color: "#6b7280",
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 16,
+  },
+});
