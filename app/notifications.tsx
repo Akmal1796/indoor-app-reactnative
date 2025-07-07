@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
+
 import {
   View,
   Text,
@@ -133,9 +135,7 @@ export default function Notifications() {
             </TouchableOpacity>
             <View>
               <Text style={styles.headerTitle}>Notifications</Text>
-              <Text style={styles.headerSubtitle}>
-                Stay updated with your sports activities
-              </Text>
+            
             </View>
           </View>
           <View style={styles.headerRight}>
@@ -325,39 +325,35 @@ export default function Notifications() {
           onPress={() => router.push("/booking-history")}
           style={styles.navItem}
         >
-          <Text style={styles.navIcon}>📅</Text>
+          <Feather name="calendar" size={24} color="green" />
           <Text style={styles.navText}>History</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/feed")}
-          style={styles.navItem}
-        >
-          <Text style={styles.navIcon}>📋</Text>
+
+        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
+          <Feather name="file-text" size={24} color="green" />
           <Text style={styles.navText}>Feed</Text>
         </TouchableOpacity>
+
         <View style={styles.navItem}>
           <TouchableOpacity
             onPress={() => router.push("/dashboard")}
             style={styles.homeButton}
           >
-            <Text style={styles.homeIcon}>🏠</Text>
+            <Ionicons name="home" size={28} color="green" />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => router.push("/search")}
-          style={styles.navItem}
-        >
-          <Text style={styles.navIcon}>🔍</Text>
+
+        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
+          <Feather name="search" size={24} color="green" />
           <Text style={styles.navText}>Search</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/profile")}
-          style={styles.navItem}
-        >
-          <Text style={styles.navIcon}>👤</Text>
+
+        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
+          <Ionicons name="person-outline" size={24} color="green" />
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
       </View>
+
     </SafeAreaView>
   );
 }
@@ -368,8 +364,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#4827EC",
+    backgroundColor: "#1DBF73",
     padding: 16,
+    paddingBottom: 20,
+    paddingTop: 68,
+    marginTop: -50,
   },
   headerRow: {
     flexDirection: "row",
@@ -379,7 +378,7 @@ const styles = StyleSheet.create({
   headerLeft: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: 10,
     flex: 1,
   },
   backButton: {
@@ -394,10 +393,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
-  headerSubtitle: {
-    color: "rgba(255, 255, 255, 0.8)",
-    fontSize: 14,
-  },
+
+  
   headerRight: {
     flexDirection: "row",
     alignItems: "center",
@@ -640,35 +637,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#6b7280",
   },
+ // Bottom Navigation
   bottomNav: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#4827EC",
-    padding: 16,
+    marginBottom: 0,
+    paddingBottom: 25,
+    backgroundColor: "white",
+    paddingVertical: 12,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+    borderTopWidth: 1,
+    borderTopColor: "green",
   },
   navItem: {
     alignItems: "center",
-  },
-  navIcon: {
-    fontSize: 20,
-    marginBottom: 4,
+    justifyContent: "center",
   },
   navText: {
-    color: "white",
+    color: "green",
     fontSize: 12,
+    marginTop: 4,
   },
   homeButton: {
     backgroundColor: "white",
     borderRadius: 24,
-    padding: 12,
-  },
-  homeIcon: {
-    fontSize: 20,
-    color: "#4827EC",
+    padding: 8,
   },
 });

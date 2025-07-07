@@ -1,4 +1,5 @@
 import React from "react";
+import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
 import {
   View,
   Text,
@@ -8,7 +9,6 @@ import {
   SafeAreaView,
 } from "react-native";
 import { router } from "expo-router";
-
 export default function Profile() {
   const user = {
     name: "Ashley Robinson",
@@ -51,23 +51,6 @@ export default function Profile() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerRow}>
-          <View style={styles.headerLeft}>
-            <Text style={styles.headerLabel}>Your Location</Text>
-            <View style={styles.locationRow}>
-              <Text style={styles.locationIcon}>📍</Text>
-              <Text style={styles.locationText}>
-                Alijinna Mawatha Thihariya
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.notificationButton}>
-            <Text style={styles.notificationIcon}>🔔</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
 
       <ScrollView
         style={styles.scrollView}
@@ -85,7 +68,10 @@ export default function Profile() {
               <View style={styles.profileInfo}>
                 <Text style={styles.userName}>{user.name}</Text>
                 <Text style={styles.userEmail}>{user.email}</Text>
-                <TouchableOpacity style={styles.editButton}>
+                <TouchableOpacity
+                  style={styles.editButton}
+                  onPress={() => router.push("/profile/edit")}
+                >
                   <Text style={styles.editButtonText}>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -102,7 +88,7 @@ export default function Profile() {
               <TouchableOpacity
                 key={index}
                 style={styles.menuItem}
-                onPress={() => console.log("Navigate to", item.href)}
+                onPress={() => router.push(item.href)}
               >
                 <View style={styles.menuContent}>
                   <View style={styles.menuLeft}>
@@ -118,46 +104,41 @@ export default function Profile() {
           </View>
         </View>
       </ScrollView>
-
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity
           onPress={() => router.push("/booking-history")}
           style={styles.navItem}
         >
-          <Text style={styles.navIcon}>📅</Text>
+          <Feather name="calendar" size={24} color="green" />
           <Text style={styles.navText}>History</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/feed")}
-          style={styles.navItem}
-        >
-          <Text style={styles.navIcon}>📋</Text>
+
+        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
+          <Feather name="file-text" size={24} color="green" />
           <Text style={styles.navText}>Feed</Text>
         </TouchableOpacity>
+
         <View style={styles.navItem}>
           <TouchableOpacity
             onPress={() => router.push("/dashboard")}
             style={styles.homeButton}
           >
-            <Text style={styles.homeIcon}>🏠</Text>
+            <Ionicons name="home" size={28} color="green" />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => router.push("/search")}
-          style={styles.navItem}
-        >
-          <Text style={styles.navIcon}>🔍</Text>
+
+        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
+          <Feather name="search" size={24} color="green" />
           <Text style={styles.navText}>Search</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/profile")}
-          style={[styles.navItem, styles.activeNavItem]}
-        >
-          <Text style={styles.navIcon}>👤</Text>
+
+        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
+          <Ionicons name="person-outline" size={24} color="green" />
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
       </View>
+
     </SafeAreaView>
   );
 }
@@ -165,11 +146,48 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f9fafb",
+    backgroundColor: "white",
   },
-  header: {
-    backgroundColor: "#4827EC",
+ header: {
+    backgroundColor: "#1DBF73",
     padding: 16,
+    paddingTop: 40,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+    headerButtons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  headerButton: {
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    padding: 8,
+    borderRadius: 8,
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+   notificationBadge: {
+    position: "absolute",
+    top: -4,
+    right: -4,
+    backgroundColor: "#ef4444",
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  notificationBadgeText: {
+    color: "white",
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  buttonText: {
+    fontSize: 16,
   },
   headerRow: {
     flexDirection: "row",
@@ -182,6 +200,28 @@ const styles = StyleSheet.create({
   headerLabel: {
     color: "rgba(255, 255, 255, 0.8)",
     fontSize: 14,
+  },
+    searchContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  searchIcon: {
+    fontSize: 16,
+    marginRight: 8,
+    color: "#6b7280",
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: "#111827",
+  },
+  clearButton: {
+    padding: 4,
   },
   locationRow: {
     flexDirection: "row",
@@ -208,6 +248,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
+    paddingTop: 40,
     paddingBottom: 80,
   },
   profileSection: {
@@ -315,41 +356,35 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#6b7280",
   },
+  // Bottom Navigation
   bottomNav: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#4827EC",
-    padding: 16,
+    marginBottom: 0,
+    paddingBottom: 25,
+    backgroundColor: "white",
+    paddingVertical: 12,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+    borderTopWidth: 1,
+    borderTopColor: "green",
   },
   navItem: {
     alignItems: "center",
-  },
-  activeNavItem: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
-  navIcon: {
-    fontSize: 20,
-    marginBottom: 4,
+    justifyContent: "center",
   },
   navText: {
-    color: "white",
+    color: "green",
     fontSize: 12,
+    marginTop: 4,
   },
   homeButton: {
     backgroundColor: "white",
     borderRadius: 24,
-    padding: 12,
+    padding: 8,
   },
-  homeIcon: {
-    fontSize: 20,
-    color: "#4827EC",
-  },
+  //end bottom navigation
 });
