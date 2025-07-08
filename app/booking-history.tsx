@@ -196,19 +196,7 @@ export default function BookingHistoryScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <Link href="/dashboard" asChild>
-            <TouchableOpacity style={styles.backButton}>
-              <Text style={styles.backButtonText}>←</Text>
-            </TouchableOpacity>
-          </Link>
-          <Text style={styles.headerTitle}>Booking History</Text>
-        </View>
-        <TouchableOpacity style={styles.calendarButton}>
-          <Text style={styles.calendarIcon}>📅</Text>
-        </TouchableOpacity>
-      </View>
+ 
 
       {/* Tab Navigation */}
       <View style={styles.tabContainer}>

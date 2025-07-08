@@ -190,36 +190,6 @@ const Avatar = ({ name, imageUri }) => {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <View style={styles.logo}>
-            <TouchableOpacity onPress={() => router.back()}>
-              <Ionicons name="arrow-back" size={24} color="black" />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.headerTitle}>Feed</Text>
-        </View>
-
-        {/* Right Column - Action Buttons */}
-        <View style={styles.headerButtons}>
-          <TouchableOpacity
-            onPress={() => router.push("/messages")}
-            style={styles.headerButton}
-          >
-            <Ionicons name="chatbubble-ellipses-outline" size={22} color="white" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => router.push("/notifications")}
-            style={[styles.headerButton, styles.notificationButton]}
-          >
-            <Ionicons name="notifications-outline" size={22} color="white" />
-            <View style={styles.notificationBadge}>
-              <Text style={styles.notificationBadgeText}>3</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
 
       <ScrollView
         style={styles.feed}

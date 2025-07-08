@@ -291,14 +291,14 @@ const styles = StyleSheet.create({
   },
   editButton: {
     borderWidth: 1,
-    borderColor: "#4827EC",
+    borderColor: "#1DBF73",
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,
     alignSelf: "flex-start",
   },
   editButtonText: {
-    color: "#4827EC",
+    color: "#1DBF73",
     fontSize: 14,
     fontWeight: "500",
   },

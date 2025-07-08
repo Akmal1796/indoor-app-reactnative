@@ -124,33 +124,7 @@ export default function Notifications() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerRow}>
-          <View style={styles.headerLeft}>
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={styles.backButton}
-            >
-              <Text style={styles.backIcon}>←</Text>
-            </TouchableOpacity>
-            <View>
-              <Text style={styles.headerTitle}>Notifications</Text>
-            
-            </View>
-          </View>
-          <View style={styles.headerRight}>
-            {unreadCount > 0 && (
-              <TouchableOpacity style={styles.markAllButton}>
-                <Text style={styles.markAllIcon}>✓</Text>
-                <Text style={styles.markAllText}>Mark all read</Text>
-              </TouchableOpacity>
-            )}
-            <TouchableOpacity style={styles.settingsButton}>
-              <Text style={styles.settingsIcon}>⚙️</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+ 
 
       {/* Filter Tabs */}
       <View style={styles.tabsContainer}>
@@ -440,7 +414,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "transparent",
   },
   activeTab: {
-    borderBottomColor: "#4827EC",
+    borderBottomColor: "#1DBF73",
   },
   tabText: {
     fontSize: 14,
@@ -448,7 +422,7 @@ const styles = StyleSheet.create({
     color: "#6b7280",
   },
   activeTabText: {
-    color: "#4827EC",
+    color: "#1DBF73",
   },
   unreadBadge: {
     backgroundColor: "#ef4444",
@@ -499,7 +473,7 @@ const styles = StyleSheet.create({
   },
   unreadCard: {
     borderLeftWidth: 4,
-    borderLeftColor: "#4827EC",
+    borderLeftColor: "#1DBF73",
     backgroundColor: "rgba(59, 130, 246, 0.05)",
   },
   notificationContent: {
@@ -553,7 +527,7 @@ const styles = StyleSheet.create({
   unreadDot: {
     width: 6,
     height: 6,
-    backgroundColor: "#4827EC",
+    backgroundColor: "#1DBF73",
     borderRadius: 3,
   },
   notificationMessage: {

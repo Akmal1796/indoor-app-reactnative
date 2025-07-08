@@ -78,39 +78,7 @@ export default function Dashboard() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerRow}>
-          {/* Left Column - Logo */}
-          <View style={styles.logoSection}>
-
-            <Text style={styles.logoTitle}>Indoorbooking.com</Text>
-          </View>
-
-          {/* Right Column - Action Buttons */}
-          <View style={styles.headerButtons}>
-            <View style={styles.headerButtons}>
-              {/* Messages Icon */}
-              <TouchableOpacity
-                onPress={() => router.push("/messages")}
-                style={styles.headerButton}
-              >
-                <Ionicons name="chatbubble-ellipses-outline" size={22} color="white" />
-              </TouchableOpacity>
-
-              {/* Notifications Icon with Badge */}
-              <TouchableOpacity
-                onPress={() => router.push("/notifications")}
-                style={[styles.headerButton, styles.notificationButton]}
-              >
-                <Ionicons name="notifications-outline" size={22} color="white" />
-                <View style={styles.notificationBadge}>
-                  <Text style={styles.notificationBadgeText}>3</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
+     
 
       <ScrollView
         style={styles.scrollView}

@@ -200,32 +200,7 @@ export default function Messages() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerRow}>
-          <View style={styles.headerLeft}>
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={styles.backButton}
-            >
-              <Text style={styles.backIcon}>←</Text>
-            </TouchableOpacity>
-            <View>
-              <Text style={styles.headerTitle}>Messages</Text>
-              <Text style={styles.headerSubtitle}>
-                Stay connected with your sports community
-              </Text>
-            </View>
-          </View>
-          <View style={styles.headerRight}>
-            <TouchableOpacity style={styles.headerButton}>
-              <Text style={styles.headerButtonIcon}>🔍</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.headerButton}>
-              <Text style={styles.headerButtonIcon}>⋯</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+
 
       <ScrollView
         style={styles.scrollView}

@@ -403,7 +403,6 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#1DBF73",
     padding: 16,
-    paddingTop: 40, // For status bar
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
@@ -459,7 +458,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   activeFilterChip: {
-    backgroundColor: "#4827EC",
+    backgroundColor: "#1DBF73",
   },
   filterEmoji: {
     fontSize: 14,
