@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
-import { handleGetNotifications } from './routes/notifications';
 
 export function createServer() {
   const app = express();
@@ -19,5 +18,4 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
 
   return app;
-  app.get('/api/notifications', handleGetNotifications);
 }

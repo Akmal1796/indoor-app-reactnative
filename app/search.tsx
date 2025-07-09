@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
-
 import {
   View,
   Text,
@@ -9,7 +7,7 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 
 interface SearchResult {
   id: string;
@@ -91,7 +89,7 @@ export default function SearchScreen() {
     { id: "venues", label: "Venues", icon: "🏟️" },
     { id: "users", label: "Users", icon: "👥" },
     { id: "teams", label: "Teams", icon: "⚽" },
-    { id: "events", label: "Events", icon: "����" },
+    { id: "events", label: "Events", icon: "📅" },
   ];
 
   const sortOptions = [
@@ -356,41 +354,37 @@ export default function SearchScreen() {
         )}
       </ScrollView>
 
-          {/* Bottom Navigation */}
+      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity
-          onPress={() => router.push("/booking-history")}
-          style={styles.navItem}
-        >
-          <Feather name="calendar" size={24} color="green" />
-          <Text style={styles.navText}>History</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
-          <Feather name="file-text" size={24} color="green" />
-          <Text style={styles.navText}>Feed</Text>
-        </TouchableOpacity>
-
-        <View style={styles.navItem}>
-          <TouchableOpacity
-            onPress={() => router.push("/dashboard")}
-            style={styles.homeButton}
-          >
-            <Ionicons name="home" size={28} color="green" />
+        <Link href="/booking-history" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>📋</Text>
+            <Text style={styles.navText}>History</Text>
           </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
-          <Feather name="search" size={24} color="green" />
-          <Text style={styles.navText}>Search</Text>
+        </Link>
+        <Link href="/feed" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>📱</Text>
+            <Text style={styles.navText}>Feed</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/dashboard" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>🏠</Text>
+            <Text style={styles.navText}>Home</Text>
+          </TouchableOpacity>
+        </Link>
+        <TouchableOpacity style={[styles.navItem, styles.activeNavItem]}>
+          <Text style={[styles.navIcon, styles.activeNavIcon]}>🔍</Text>
+          <Text style={[styles.navText, styles.activeNavText]}>Search</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="green" />
-          <Text style={styles.navText}>Profile</Text>
-        </TouchableOpacity>
+        <Link href="/profile" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>👤</Text>
+            <Text style={styles.navText}>Profile</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
-
     </View>
   );
 }
@@ -401,9 +395,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     padding: 16,
-    paddingTop: 40, // For status bar
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
@@ -415,7 +408,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 12,
     paddingHorizontal: 16,
-    paddingVertical: 2,
+    paddingVertical: 12,
   },
   searchIcon: {
     fontSize: 16,
@@ -668,35 +661,36 @@ const styles = StyleSheet.create({
     color: "#6b7280",
     textAlign: "center",
   },
-   // Bottom Navigation
   bottomNav: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    marginBottom: 0,
-    paddingBottom: 25,
-    backgroundColor: "white",
-    paddingVertical: 12,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
+    backgroundColor: "white",
+    paddingVertical: 8,
     borderTopWidth: 1,
-    borderTopColor: "green",
+    borderTopColor: "#e5e7eb",
   },
   navItem: {
+    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    paddingVertical: 8,
+  },
+  activeNavItem: {
+    backgroundColor: "#f3f4f6",
+    borderRadius: 8,
+    marginHorizontal: 4,
+  },
+  navIcon: {
+    fontSize: 20,
+    marginBottom: 4,
+  },
+  activeNavIcon: {
+    color: "#4827EC",
   },
   navText: {
-    color: "green",
     fontSize: 12,
-    marginTop: 4,
+    color: "#6b7280",
   },
-  homeButton: {
-    backgroundColor: "white",
-    borderRadius: 24,
-    padding: 8,
+  activeNavText: {
+    color: "#4827EC",
+    fontWeight: "600",
   },
-  //end bottom navigation
 });

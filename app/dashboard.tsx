@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
 import {
   View,
   Text,
@@ -7,11 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  Image
 } from "react-native";
 import { router } from "expo-router";
-
-
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -82,32 +78,30 @@ export default function Dashboard() {
         <View style={styles.headerRow}>
           {/* Left Column - Logo */}
           <View style={styles.logoSection}>
-
-            <Text style={styles.logoTitle}>Indoorbooking.com</Text>
+            <View style={styles.logoIcon}>
+              <Text style={styles.logoText}>I</Text>
+            </View>
+            <Text style={styles.logoTitle}>IndoorB</Text>
           </View>
 
           {/* Right Column - Action Buttons */}
           <View style={styles.headerButtons}>
-            <View style={styles.headerButtons}>
-              {/* Messages Icon */}
-              <TouchableOpacity
-                onPress={() => router.push("/messages")}
-                style={styles.headerButton}
-              >
-                <Ionicons name="chatbubble-ellipses-outline" size={22} color="white" />
-              </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => console.log("Messages")}
+              style={styles.headerButton}
+            >
+              <Text style={styles.buttonText}>💬</Text>
+            </TouchableOpacity>
 
-              {/* Notifications Icon with Badge */}
-              <TouchableOpacity
-                onPress={() => router.push("/notifications")}
-                style={[styles.headerButton, styles.notificationButton]}
-              >
-                <Ionicons name="notifications-outline" size={22} color="white" />
-                <View style={styles.notificationBadge}>
-                  <Text style={styles.notificationBadgeText}>3</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => console.log("Notifications")}
+              style={[styles.headerButton, styles.notificationButton]}
+            >
+              <Text style={styles.buttonText}>🔔</Text>
+              <View style={styles.notificationBadge}>
+                <Text style={styles.notificationBadgeText}>3</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -121,19 +115,15 @@ export default function Dashboard() {
           <View style={styles.searchContainer}>
             <View style={styles.searchCard}>
               <View style={styles.searchInputContainer}>
-                {/* Search Icon */}
-                <Feather name="search" size={20} color="#1DBF73" style={{ marginRight: 12 }} />
-
+                <Text style={styles.searchIcon}>🔍</Text>
                 <TextInput
                   placeholder="Search Complex, Sports etc"
                   value={searchQuery}
                   onChangeText={setSearchQuery}
                   style={styles.searchInput}
                 />
-
-                {/* Settings/Filter Icon */}
                 <TouchableOpacity style={styles.filterButton}>
-                  <Ionicons name="options-outline" size={20} color="#1DBF73" />
+                  <Text style={styles.filterIcon}>⚙️</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -176,12 +166,7 @@ export default function Dashboard() {
               </TouchableOpacity>
             </View>
 
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.venuesList}
-              contentContainerStyle={styles.venuesContent}
-            >
+            <View style={styles.venuesList}>
               {venues.map((venue) => (
                 <TouchableOpacity
                   key={venue.id}
@@ -189,11 +174,7 @@ export default function Dashboard() {
                   onPress={() => console.log("Venue", venue.id)}
                 >
                   <View style={styles.venueImagePlaceholder}>
-                    <Image
-                      source={{ uri: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npEIou3HczojFxxlPoObXLhTmA3wsk7XTt3IzEpBiUh6X5ODfBDNU3MsU0mHiPGtD7OuIlypa6SmyfXfRdI4tb3ZaaD6GI36MIKJocUAlLtbHNXSPNqNLc__Y8EZRWTV27cVE4t=s680-w680-h510-rw" }}
-                      style={styles.venueImage}
-                    />
-
+                    <Text style={styles.venueImageText}>🏟️</Text>
                   </View>
 
                   <View style={styles.venueInfo}>
@@ -224,7 +205,7 @@ export default function Dashboard() {
                   </View>
                 </TouchableOpacity>
               ))}
-            </ScrollView>
+            </View>
           </View>
 
           {/* Recent Sports News */}
@@ -245,15 +226,12 @@ export default function Dashboard() {
                 <TouchableOpacity key={news.id} style={styles.newsCard}>
                   <View style={styles.newsImageContainer}>
                     <View style={styles.newsImagePlaceholder}>
-                      <Image
-                        source={{ uri: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npEIou3HczojFxxlPoObXLhTmA3wsk7XTt3IzEpBiUh6X5ODfBDNU3MsU0mHiPGtD7OuIlypa6SmyfXfRdI4tb3ZaaD6GI36MIKJocUAlLtbHNXSPNqNLc__Y8EZRWTV27cVE4t=s680-w680-h510-rw" }}
-                        style={styles.venueImage}
-                      />                    
+                      <Text style={styles.newsImageText}>📰</Text>
                     </View>
                     {news.isLive && (
-                    <View style={styles.liveIndicator}>
+                      <View style={styles.liveIndicator}>
                         <Text style={styles.liveText}>🔴 LIVE</Text>
-                    </View>
+                      </View>
                     )}
                     <View style={styles.categoryBadge}>
                       <Text style={styles.categoryBadgeText}>
@@ -334,35 +312,25 @@ export default function Dashboard() {
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity
-          onPress={() => router.push("/booking-history")}
-          style={styles.navItem}
-        >
-          <Feather name="calendar" size={24} color="green" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>📅</Text>
           <Text style={styles.navText}>History</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
-          <Feather name="file-text" size={24} color="green" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>📋</Text>
           <Text style={styles.navText}>Feed</Text>
         </TouchableOpacity>
-
         <View style={styles.navItem}>
-          <TouchableOpacity
-            onPress={() => router.push("/dashboard")}
-            style={styles.homeButton}
-          >
-            <Ionicons name="home" size={28} color="green" />
+          <TouchableOpacity style={styles.homeButton}>
+            <Text style={styles.homeIcon}>🏠</Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
-          <Feather name="search" size={24} color="green" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>🔍</Text>
           <Text style={styles.navText}>Search</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="green" />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>👤</Text>
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
       </View>
@@ -376,38 +344,36 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     padding: 16,
-    paddingTop: 40, // Adjust for status bar
-    borderWidth: 0.4,
-    borderColor: "green",
   },
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    borderColor: "green",
   },
   logoSection: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
-    marginLeft: 8,
+    gap: 8,
   },
-
+  logoIcon: {
+    width: 32,
+    height: 32,
+    backgroundColor: "white",
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   logoText: {
-    color: "white",
-    fontSize: 48,
-    fontWeight: "800",
-    textAlign: "center",
+    color: "#4827EC",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   logoTitle: {
     color: "white",
-    fontSize: 24,
-    fontWeight: "700",
-    textAlign: "center",
-    justifyContent: "center",
-    fontFamily: "Oswald_400Regular",
+    fontSize: 18,
+    fontWeight: "600",
   },
   headerButtons: {
     flexDirection: "row",
@@ -415,7 +381,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   headerButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    backgroundColor: "rgba(255,255,255,0.2)",
     padding: 8,
     borderRadius: 8,
     width: 40,
@@ -461,18 +427,32 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 16,
     boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.05)",
-    marginTop: 23,
   },
-
+  searchInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   searchIcon: {
     fontSize: 20,
     marginRight: 12,
-    color: "#1DBF73",
+    color: "#4827EC",
   },
-
+  searchInput: {
+    flex: 1,
+    height: 40,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+  },
+  filterButton: {
+    marginLeft: 8,
+    padding: 8,
+  },
   filterIcon: {
     fontSize: 16,
-    color: "#1DBF73",
+    color: "#4827EC",
   },
   categoriesContainer: {
     marginBottom: 24,
@@ -522,20 +502,13 @@ const styles = StyleSheet.create({
     color: "#1DBF73",
   },
   venuesList: {
-    marginBottom: 16,
-  },
-  venuesContent: {
-    flexDirection: "row",
     gap: 16,
-    paddingRight: 16,
   },
   venueCard: {
     backgroundColor: "white",
     borderRadius: 16,
     overflow: "hidden",
     boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.05)",
-    width: 300,
-    marginRight: 16,
   },
   venueImagePlaceholder: {
     height: 160,
@@ -732,60 +705,35 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,0.9)",
     fontSize: 12,
   },
- // Bottom Navigation
   bottomNav: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    marginBottom: 0,
-    paddingBottom: 25,
-    backgroundColor: "white",
-    paddingVertical: 12,
+    backgroundColor: "#4827EC",
+    padding: 16,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    borderTopWidth: 1,
-    borderTopColor: "green",
   },
   navItem: {
     alignItems: "center",
-    justifyContent: "center",
+  },
+  navIcon: {
+    fontSize: 20,
+    marginBottom: 4,
   },
   navText: {
-    color: "green",
+    color: "white",
     fontSize: 12,
-    marginTop: 4,
   },
   homeButton: {
     backgroundColor: "white",
     borderRadius: 24,
-    padding: 8,
+    padding: 12,
   },
-  //end bottom navigation
-  venueImage: {
-    height: 160,
-    width: "100%",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    resizeMode: "cover",
+  homeIcon: {
+    fontSize: 20,
+    color: "#4827EC",
   },
-
-  searchInputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f0f2f5",
-    borderRadius: 24,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
-  },
-  filterButton: {
-    padding: 6,
-  },
-
 });

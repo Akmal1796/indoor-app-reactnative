@@ -11,11 +11,6 @@ import {
 } from "react-native";
 import { Link, router } from "expo-router";
 
-export const screenOptions = {
-  headerShown: false,
-};
-
-
 export default function ProfileEditScreen() {
   const [formData, setFormData] = useState({
     firstName: "John",
@@ -339,7 +334,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     padding: 16,
     flexDirection: "row",
     alignItems: "center",

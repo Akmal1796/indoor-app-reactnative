@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, ArrowRight } from 'lucide-react-native';
+import { Menu, X, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 export function Header() {
