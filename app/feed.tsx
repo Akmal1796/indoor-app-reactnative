@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons, Feather } from "@expo/vector-icons";
 import {
   View,
   Text,
@@ -9,15 +8,7 @@ import {
   StyleSheet,
   RefreshControl,
 } from "react-native";
-import { Link, router } from "expo-router";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Image } from "react-native";
-
-
-const user = {
-  name: "John Doe",
-  avatarUrl: null, // or use a real URL like 'https://example.com/avatar.jpg'
-};
+import { Link } from "expo-router";
 
 interface Post {
   id: string;
@@ -40,7 +31,6 @@ interface Post {
 
 export default function FeedScreen() {
   const [refreshing, setRefreshing] = useState(false);
-  const [newPost, setNewPost] = useState("");
   const [posts, setPosts] = useState<Post[]>([
     {
       id: "1",
@@ -98,6 +88,9 @@ export default function FeedScreen() {
     },
   ]);
 
+  const [newPost, setNewPost] = useState("");
+  const [showPostForm, setShowPostForm] = useState(false);
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
@@ -114,8 +107,8 @@ export default function FeedScreen() {
               isLiked: !post.isLiked,
               likes: post.isLiked ? post.likes - 1 : post.likes + 1,
             }
-          : post
-      )
+          : post,
+      ),
     );
   };
 
@@ -135,6 +128,7 @@ export default function FeedScreen() {
       };
       setPosts((prev) => [post, ...prev]);
       setNewPost("");
+      setShowPostForm(false);
     }
   };
 
@@ -165,32 +159,61 @@ export default function FeedScreen() {
     }
   };
 
-const [isExpanded, setIsExpanded] = useState(false);
-
-
-const Avatar = ({ name, imageUri }) => {
-  const getInitial = () => name ? name.charAt(0).toUpperCase() : "?";
-
-  const backgroundColors = ["#F59E0B", "#10B981", "#3B82F6", "#EC4899", "#F43F5E"];
-  const randomColor = backgroundColors[(name?.charCodeAt(0) || 0) % backgroundColors.length];
-
-  return imageUri ? (
-    <Image
-      source={{ uri: imageUri }}
-      style={styles.avatarImage}
-    />
-  ) : (
-    <View style={[styles.avatarFallback, { backgroundColor: randomColor }]}>
-      <Text style={styles.avatarInitial}>{getInitial()}</Text>
-    </View>
-  );
-};
-
-
   return (
     <View style={styles.container}>
       {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <View style={styles.logo}>
+            <Text style={styles.logoText}>I</Text>
+          </View>
+          <Text style={styles.headerTitle}>Sports Feed</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.createPostButton}
+          onPress={() => setShowPostForm(!showPostForm)}
+        >
+          <Text style={styles.createPostIcon}>✏️</Text>
+        </TouchableOpacity>
+      </View>
 
+      {/* Create Post Form */}
+      {showPostForm && (
+        <View style={styles.postForm}>
+          <View style={styles.postFormHeader}>
+            <Text style={styles.postFormTitle}>Share with the community</Text>
+            <TouchableOpacity onPress={() => setShowPostForm(false)}>
+              <Text style={styles.closeButton}>✕</Text>
+            </TouchableOpacity>
+          </View>
+          <TextInput
+            style={styles.postInput}
+            placeholder="What's happening in your sports world?"
+            value={newPost}
+            onChangeText={setNewPost}
+            multiline
+            numberOfLines={3}
+          />
+          <View style={styles.postFormActions}>
+            <View style={styles.postOptions}>
+              <TouchableOpacity style={styles.postOption}>
+                <Text style={styles.postOptionIcon}>📷</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.postOption}>
+                <Text style={styles.postOptionIcon}>📍</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.postOption}>
+                <Text style={styles.postOptionIcon}>🏃‍♂️</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={styles.postButton} onPress={handlePost}>
+              <Text style={styles.postButtonText}>Post</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {/* Feed */}
       <ScrollView
         style={styles.feed}
         showsVerticalScrollIndicator={false}
@@ -198,78 +221,9 @@ const Avatar = ({ name, imageUri }) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-      {/* Always Visible Post Form */}
-<View style={styles.postForm}>
-  <View style={styles.postRow}>
-    {/* Avatar outside the text box, like WhatsApp */}
-<Avatar name="John Doe" imageUri={user?.avatarUrl} />
-
-    {/* Content beside avatar */}
-    <View style={styles.postContentArea}>
-      {!isExpanded ? (
-        <TouchableOpacity
-          style={styles.postCollapsed}
-          onPress={() => setIsExpanded(true)}
-        >
-          <Text style={styles.placeholderText}>
-            What's happening in your sports world?
-          </Text>
-        </TouchableOpacity>
-      ) : (
-        <>
-          <TextInput
-            style={styles.postInput}
-            placeholder="Share your thoughts..."
-            value={newPost}
-            onChangeText={setNewPost}
-            multiline
-          />
-
-          <View style={styles.mediaOptions}>
-            <TouchableOpacity style={styles.postOption}>
-              {/* Camera icon: metallic or grayish tint */}
-              <Icon name="camera" size={24} color="#6B7280" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.postOption}>
-              {/* Map marker: realistic red */}
-              <Icon name="map-marker" size={24} color="#E11D48" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.postOption}>
-              {/* Running man: sporty blue or vibrant green */}
-              <Icon name="male" size={24} color="#2563EB" />
-            </TouchableOpacity>
-          </View>
-
-
-          <View style={styles.expandedActions}>
-            <TouchableOpacity
-              onPress={() => {
-                setIsExpanded(false);
-                setNewPost("");
-              }}
-            >
-              <Text style={{ color: "#6b7280" }}>Cancel</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.postButton}
-              onPress={() => {
-                handlePost();
-                setIsExpanded(false);
-              }}
-            >
-              <Text style={styles.postButtonText}>Post</Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      )}
-    </View>
-  </View>
-</View>
-
-      {/* Feed */}
         {posts.map((post) => (
           <View key={post.id} style={styles.postCard}>
+            {/* Post Header */}
             <View style={styles.postHeader}>
               <View style={styles.userInfo}>
                 <Text style={styles.userAvatar}>{post.user.avatar}</Text>
@@ -302,14 +256,17 @@ const Avatar = ({ name, imageUri }) => {
               </View>
             </View>
 
+            {/* Post Content */}
             <Text style={styles.postContent}>{post.content}</Text>
 
+            {/* Post Image Placeholder */}
             {post.image && (
               <View style={styles.postImage}>
                 <Text style={styles.imagePlaceholder}>📷 Image</Text>
               </View>
             )}
 
+            {/* Post Actions */}
             <View style={styles.postActions}>
               <TouchableOpacity
                 style={styles.actionButton}
@@ -353,37 +310,34 @@ const Avatar = ({ name, imageUri }) => {
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity
-          onPress={() => router.push("/booking-history")}
-          style={styles.navItem}
-        >
-          <Feather name="calendar" size={24} color="green" />
-          <Text style={styles.navText}>History</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
-          <Feather name="file-text" size={24} color="green" />
-          <Text style={styles.navText}>Feed</Text>
-        </TouchableOpacity>
-
-        <View style={styles.navItem}>
-          <TouchableOpacity
-            onPress={() => router.push("/dashboard")}
-            style={styles.homeButton}
-          >
-            <Ionicons name="home" size={28} color="green" />
+        <Link href="/booking-history" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>📋</Text>
+            <Text style={styles.navText}>History</Text>
           </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
-          <Feather name="search" size={24} color="green" />
-          <Text style={styles.navText}>Search</Text>
+        </Link>
+        <TouchableOpacity style={[styles.navItem, styles.activeNavItem]}>
+          <Text style={[styles.navIcon, styles.activeNavIcon]}>📱</Text>
+          <Text style={[styles.navText, styles.activeNavText]}>Feed</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="green" />
-          <Text style={styles.navText}>Profile</Text>
-        </TouchableOpacity>
+        <Link href="/dashboard" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>🏠</Text>
+            <Text style={styles.navText}>Home</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/search" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>🔍</Text>
+            <Text style={styles.navText}>Search</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/profile" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>👤</Text>
+            <Text style={styles.navText}>Profile</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
@@ -395,12 +349,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#1DBF73",
-    padding: 20,
-    paddingTop: 40, // Adjust for status bar
-    borderWidth: 0.4,
-    borderColor: "green",
-
+    backgroundColor: "#4827EC",
+    padding: 16,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -437,11 +387,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   postForm: {
-    backgroundColor: 'transparent',
-    marginBottom: 8,
+    backgroundColor: "white",
+    margin: 16,
     borderRadius: 12,
-    padding: 8,
-    marginTop: 2,
+    padding: 16,
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
   },
   postFormHeader: {
     flexDirection: "row",
@@ -453,7 +403,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: "#111827",
-    paddingBottom: 5,
   },
   closeButton: {
     fontSize: 18,
@@ -487,7 +436,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   postButton: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     paddingHorizontal: 20,
     paddingVertical: 8,
     borderRadius: 8,
@@ -518,8 +467,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userAvatar: {
-    fontSize: 20,
-    marginRight: 0,
+    fontSize: 40,
+    marginRight: 12,
   },
   userDetails: {
     flex: 1,
@@ -627,144 +576,35 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   bottomNav: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    marginBottom: 0,
-    paddingBottom: 25,
-    backgroundColor: "white",
-    paddingVertical: 12,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
+    backgroundColor: "white",
+    paddingVertical: 8,
     borderTopWidth: 1,
-    borderTopColor: "green",
+    borderTopColor: "#e5e7eb",
   },
   navItem: {
+    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    paddingVertical: 8,
   },
-  navText: {
-    color: "green",
-    fontSize: 12,
-    marginTop: 4,
+  activeNavItem: {
+    backgroundColor: "#f3f4f6",
+    borderRadius: 8,
+    marginHorizontal: 4,
   },
-  homeButton: {
-    backgroundColor: "white",
-    borderRadius: 24,
-    padding: 8,
+  navIcon: {
+    fontSize: 20,
+    marginBottom: 4,
   },
   activeNavIcon: {
     color: "#4827EC",
   },
-
+  navText: {
+    fontSize: 12,
+    color: "#6b7280",
+  },
   activeNavText: {
     color: "#4827EC",
     fontWeight: "600",
-  },
-
-expandedHeader: {
-  flexDirection: "row",
-  alignItems: "flex-start",
-  marginBottom: 8,
-},
-
-mediaOptions: {
-  flexDirection: "row",
-  justifyContent: "flex-start",
-  gap: 8,
-  marginBottom: 12,
-},
-
-expandedActions: {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-},
-
-postRow: {
-  flexDirection: "row",
-  alignItems: "baseline",
-  marginBottom: 12,
-},
-
-postContentArea: {
-  flex: 1,
-  marginLeft: 10,
-},
-
-postCollapsed: {
-  borderWidth: 1,
-  borderColor: "#e5e7eb",
-  borderRadius: 20,
-  backgroundColor: "#f3f4f6",
-  paddingVertical: 10,
-  paddingHorizontal: 16,
-},
-
-placeholderText: {
-  color: "#9ca3af",
-  fontSize: 16,
-},
-
-
-avatarImage: {
-  width: 40,
-  height: 40,
-  borderRadius: 20,
-},
-
-avatarFallback: {
-  width: 40,
-  height: 40,
-  borderRadius: 20,
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-
-avatarInitial: {
-  color: '#fff',
-  fontSize: 18,
-  fontWeight: 'bold',
-},
-
-
-  //header nav and mesg 
-    headerButtons: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  headerButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    padding: 8,
-    borderRadius: 8,
-    width: 40,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    fontSize: 16,
-  },
-  notificationButton: {
-    position: "relative",
-  },
-  notificationBadge: {
-    position: "absolute",
-    top: -4,
-    right: -4,
-    backgroundColor: "#ef4444",
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  notificationBadgeText: {
-    color: "white",
-    fontSize: 10,
-    fontWeight: "bold",
   },
 });

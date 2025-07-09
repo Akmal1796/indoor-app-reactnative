@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
-import { router } from "expo-router";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,6 +8,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { Link } from "expo-router";
 
 interface TeamMember {
   id: string;
@@ -110,6 +109,20 @@ export default function TeamScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Link href="/dashboard" asChild>
+            <TouchableOpacity style={styles.backButton}>
+              <Text style={styles.backButtonText}>←</Text>
+            </TouchableOpacity>
+          </Link>
+          <Text style={styles.headerTitle}>Team Management</Text>
+        </View>
+        <TouchableOpacity style={styles.settingsButton}>
+          <Text style={styles.settingsIcon}>⚙️</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Tab Navigation */}
       <View style={styles.tabContainer}>
@@ -292,37 +305,36 @@ export default function TeamScreen() {
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity
-          onPress={() => router.push("/booking-history")}
-          style={styles.navItem}
-        >
-          <Feather name="calendar" size={24} color="green" />
-          <Text style={styles.navText}>History</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
-          <Feather name="file-text" size={24} color="green" />
-          <Text style={styles.navText}>Feed</Text>
-        </TouchableOpacity>
-
-        <View style={styles.navItem}>
-          <TouchableOpacity
-            onPress={() => router.push("/dashboard")}
-            style={styles.homeButton}
-          >
-            <Ionicons name="home" size={28} color="green" />
+        <Link href="/booking-history" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>📋</Text>
+            <Text style={styles.navText}>History</Text>
           </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
-          <Feather name="search" size={24} color="green" />
-          <Text style={styles.navText}>Search</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="green" />
-          <Text style={styles.navText}>Profile</Text>
-        </TouchableOpacity>
+        </Link>
+        <Link href="/feed" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>📱</Text>
+            <Text style={styles.navText}>Feed</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/dashboard" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>🏠</Text>
+            <Text style={styles.navText}>Home</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/search" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>🔍</Text>
+            <Text style={styles.navText}>Search</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/profile" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>👤</Text>
+            <Text style={styles.navText}>Profile</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
@@ -332,6 +344,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f9fafb",
+  },
+  header: {
+    backgroundColor: "#4827EC",
+    padding: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  headerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  backButton: {
+    marginRight: 12,
+    padding: 8,
+  },
+  backButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  headerTitle: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
   },
   settingsButton: {
     padding: 8,
@@ -353,14 +390,14 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: "#138652",
+    borderBottomColor: "#4827EC",
   },
   tabText: {
     fontSize: 14,
-    color: "#1DBF73",
+    color: "#6b7280",
   },
   activeTabText: {
-    color: "#138652",
+    color: "#4827EC",
     fontWeight: "600",
   },
   content: {
@@ -410,10 +447,10 @@ const styles = StyleSheet.create({
   },
   teamSport: {
     fontSize: 14,
-    color: "#1DBF73",
+    color: "#6b7280",
   },
   ownerBadge: {
-    backgroundColor: "#138652",
+    backgroundColor: "#4827EC",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
@@ -428,7 +465,7 @@ const styles = StyleSheet.create({
   },
   teamStatText: {
     fontSize: 14,
-    color: "#1DBF73",
+    color: "#6b7280",
     marginBottom: 4,
   },
   teamActions: {
@@ -443,7 +480,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   actionButtonText: {
-    color: "#138652",
+    color: "#4827EC",
     fontWeight: "600",
   },
   emptyState: {
@@ -462,7 +499,7 @@ const styles = StyleSheet.create({
   },
   emptyDescription: {
     fontSize: 14,
-    color: "#1DBF73",
+    color: "#6b7280",
     textAlign: "center",
   },
   inviteCard: {
@@ -483,11 +520,11 @@ const styles = StyleSheet.create({
   },
   inviteSport: {
     fontSize: 14,
-    color: "#1DBF73",
+    color: "#6b7280",
   },
   inviteText: {
     fontSize: 14,
-    color: "#1DBF73",
+    color: "#6b7280",
     marginBottom: 16,
   },
   inviteActions: {
@@ -501,7 +538,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   acceptButton: {
-    backgroundColor: "#138652",
+    backgroundColor: "#4827EC",
   },
   acceptButtonText: {
     color: "white",
@@ -511,7 +548,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f3f4f6",
   },
   declineButtonText: {
-    color: "#1DBF73",
+    color: "#6b7280",
     fontWeight: "600",
   },
   createForm: {
@@ -560,14 +597,14 @@ const styles = StyleSheet.create({
   },
   sportSelectorText: {
     fontSize: 16,
-    color: "#1DBF73",
+    color: "#6b7280",
   },
   sportSelectorArrow: {
     fontSize: 12,
-    color: "#1DBF73",
+    color: "#6b7280",
   },
   createButton: {
-    backgroundColor: "#138652",
+    backgroundColor: "#4827EC",
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: "center",
@@ -596,11 +633,6 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: 12,
-    color: "#1DBF73",
-  },
-  homeButton: {
-    backgroundColor: "white",
-    borderRadius: 24,
-    padding: 8,
+    color: "#6b7280",
   },
 });

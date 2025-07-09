@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
-import { router } from "expo-router";
-
 import {
   View,
   Text,
@@ -117,7 +114,7 @@ export default function BookingHistoryScreen() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "upcoming":
-        return "#6fa8dc";
+        return "#4827EC";
       case "completed":
         return "#10b981";
       case "cancelled":
@@ -196,7 +193,19 @@ export default function BookingHistoryScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
- 
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Link href="/dashboard" asChild>
+            <TouchableOpacity style={styles.backButton}>
+              <Text style={styles.backButtonText}>←</Text>
+            </TouchableOpacity>
+          </Link>
+          <Text style={styles.headerTitle}>Booking History</Text>
+        </View>
+        <TouchableOpacity style={styles.calendarButton}>
+          <Text style={styles.calendarIcon}>📅</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Tab Navigation */}
       <View style={styles.tabContainer}>
@@ -407,41 +416,37 @@ export default function BookingHistoryScreen() {
         )}
       </ScrollView>
 
-          {/* Bottom Navigation */}
+      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity
-          onPress={() => router.push("/booking-history")}
-          style={styles.navItem}
-        >
-          <Feather name="calendar" size={24} color="#117c13" />
-          <Text style={styles.navText}>History</Text>
+        <TouchableOpacity style={[styles.navItem, styles.activeNavItem]}>
+          <Text style={[styles.navIcon, styles.activeNavIcon]}>📋</Text>
+          <Text style={[styles.navText, styles.activeNavText]}>History</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
-          <Feather name="file-text" size={24} color="#117c13" />
-          <Text style={styles.navText}>Feed</Text>
-        </TouchableOpacity>
-
-        <View style={styles.navItem}>
-          <TouchableOpacity
-            onPress={() => router.push("/dashboard")}
-            style={styles.homeButton}
-          >
-            <Ionicons name="home" size={28} color="#117c13" />
+        <Link href="/feed" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>📱</Text>
+            <Text style={styles.navText}>Feed</Text>
           </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
-          <Feather name="search" size={24} color="#117c13" />
-          <Text style={styles.navText}>Search</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="#117c13" />
-          <Text style={styles.navText}>Profile</Text>
-        </TouchableOpacity>
+        </Link>
+        <Link href="/dashboard" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>🏠</Text>
+            <Text style={styles.navText}>Home</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/search" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>🔍</Text>
+            <Text style={styles.navText}>Search</Text>
+          </TouchableOpacity>
+        </Link>
+        <Link href="/profile" asChild>
+          <TouchableOpacity style={styles.navItem}>
+            <Text style={styles.navIcon}>👤</Text>
+            <Text style={styles.navText}>Profile</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
-
     </View>
   );
 }
@@ -452,9 +457,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     padding: 16,
-    paddingTop: 40, // For status bar
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -462,7 +466,6 @@ const styles = StyleSheet.create({
   headerLeft: {
     flexDirection: "row",
     alignItems: "center",
-
   },
   backButton: {
     marginRight: 12,
@@ -470,15 +473,13 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     color: "white",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
   },
   headerTitle: {
     color: "white",
     fontSize: 18,
     fontWeight: "600",
-    alignContent: "center",
-    textAlign: "center",
   },
   calendarButton: {
     backgroundColor: "rgba(255, 255, 255, 0.2)",
@@ -494,14 +495,11 @@ const styles = StyleSheet.create({
     marginTop: -8,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    marginBottom: -10,
   },
   tab: {
     flex: 1,
     paddingVertical: 16,
     alignItems: "center",
-    // marginbottom: 10,
-    paddingBottom: 10,
   },
   activeTab: {
     borderBottomWidth: 2,
@@ -610,7 +608,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 8,
     width: 20,
-    color: "green",
   },
   detailText: {
     fontSize: 14,
@@ -627,7 +624,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   primaryButton: {
-    backgroundColor: "#00d83a",
+    backgroundColor: "#4827EC",
   },
   primaryButtonText: {
     color: "white",
@@ -650,35 +647,36 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 14,
   },
- // Bottom Navigation
   bottomNav: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    marginBottom: 0,
-    paddingBottom: 25,
-    backgroundColor: "white",
-    paddingVertical: 12,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
+    backgroundColor: "white",
+    paddingVertical: 8,
     borderTopWidth: 1,
-    borderTopColor: "green",
+    borderTopColor: "#e5e7eb",
   },
   navItem: {
+    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    paddingVertical: 8,
+  },
+  activeNavItem: {
+    backgroundColor: "#f3f4f6",
+    borderRadius: 8,
+    marginHorizontal: 4,
+  },
+  navIcon: {
+    fontSize: 20,
+    marginBottom: 4,
+  },
+  activeNavIcon: {
+    color: "#4827EC",
   },
   navText: {
-    color: "green",
     fontSize: 12,
-    marginTop: 4,
+    color: "#6b7280",
   },
-  homeButton: {
-    backgroundColor: "white",
-    borderRadius: 24,
-    padding: 8,
+  activeNavText: {
+    color: "#4827EC",
+    fontWeight: "600",
   },
-  //end bottom navigation
 });

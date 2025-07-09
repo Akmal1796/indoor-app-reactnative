@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
-
 import {
   View,
   Text,
@@ -11,12 +9,7 @@ import {
   Alert,
   Image,
 } from "react-native";
-import { Link, router,Stack  } from "expo-router";
-
-export const screenOptions = {
-  headerShown: false,
-};
-
+import { Link, router } from "expo-router";
 
 export default function ProfileEditScreen() {
   const [formData, setFormData] = useState({
@@ -83,7 +76,7 @@ export default function ProfileEditScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      {/* <View style={styles.header}>
+      <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Link href="/profile" asChild>
             <TouchableOpacity style={styles.backButton}>
@@ -95,7 +88,7 @@ export default function ProfileEditScreen() {
         <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
           <Text style={styles.saveButtonText}>Save</Text>
         </TouchableOpacity>
-      </View> */}
+      </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Profile Photo Section */}
@@ -341,7 +334,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     padding: 16,
     flexDirection: "row",
     alignItems: "center",
@@ -405,7 +398,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     right: 0,
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     borderRadius: 20,
     width: 40,
     height: 40,
@@ -417,7 +410,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   changePhotoText: {
-    color: "#1DBF73",
+    color: "#4827EC",
     fontWeight: "600",
   },
   section: {
@@ -477,8 +470,8 @@ const styles = StyleSheet.create({
     borderColor: "#d1d5db",
   },
   sportChipSelected: {
-    backgroundColor: "#1DBF73",
-    borderColor: "#1DBF73",
+    backgroundColor: "#4827EC",
+    borderColor: "#4827EC",
   },
   sportChipText: {
     color: "#374151",
@@ -502,8 +495,8 @@ const styles = StyleSheet.create({
     borderColor: "#d1d5db",
   },
   optionButtonSelected: {
-    backgroundColor: "#1DBF73",
-    borderColor: "#1DBF73",
+    backgroundColor: "#4827EC",
+    borderColor: "#4827EC",
   },
   optionButtonText: {
     color: "#374151",
@@ -535,7 +528,7 @@ const styles = StyleSheet.create({
     color: "#6b7280",
   },
   toggleButton: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     width: 24,
     height: 24,
     borderRadius: 12,

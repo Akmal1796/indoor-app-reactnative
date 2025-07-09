@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: 96,
     height: 96,
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     borderRadius: 48,
     alignItems: "center",
     justifyContent: "center",
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   ctaButton: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     paddingHorizontal: 32,
     paddingVertical: 16,
     borderRadius: 16,

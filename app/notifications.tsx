@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
-
 import {
   View,
   Text,
@@ -124,7 +122,35 @@ export default function Notifications() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
- 
+      <View style={styles.header}>
+        <View style={styles.headerRow}>
+          <View style={styles.headerLeft}>
+            <TouchableOpacity
+              onPress={() => router.back()}
+              style={styles.backButton}
+            >
+              <Text style={styles.backIcon}>←</Text>
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.headerTitle}>Notifications</Text>
+              <Text style={styles.headerSubtitle}>
+                Stay updated with your sports activities
+              </Text>
+            </View>
+          </View>
+          <View style={styles.headerRight}>
+            {unreadCount > 0 && (
+              <TouchableOpacity style={styles.markAllButton}>
+                <Text style={styles.markAllIcon}>✓</Text>
+                <Text style={styles.markAllText}>Mark all read</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity style={styles.settingsButton}>
+              <Text style={styles.settingsIcon}>⚙️</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
 
       {/* Filter Tabs */}
       <View style={styles.tabsContainer}>
@@ -299,35 +325,39 @@ export default function Notifications() {
           onPress={() => router.push("/booking-history")}
           style={styles.navItem}
         >
-          <Feather name="calendar" size={24} color="green" />
+          <Text style={styles.navIcon}>📅</Text>
           <Text style={styles.navText}>History</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/feed")} style={styles.navItem}>
-          <Feather name="file-text" size={24} color="green" />
+        <TouchableOpacity
+          onPress={() => router.push("/feed")}
+          style={styles.navItem}
+        >
+          <Text style={styles.navIcon}>📋</Text>
           <Text style={styles.navText}>Feed</Text>
         </TouchableOpacity>
-
         <View style={styles.navItem}>
           <TouchableOpacity
             onPress={() => router.push("/dashboard")}
             style={styles.homeButton}
           >
-            <Ionicons name="home" size={28} color="green" />
+            <Text style={styles.homeIcon}>🏠</Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity onPress={() => router.push("/search")} style={styles.navItem}>
-          <Feather name="search" size={24} color="green" />
+        <TouchableOpacity
+          onPress={() => router.push("/search")}
+          style={styles.navItem}
+        >
+          <Text style={styles.navIcon}>🔍</Text>
           <Text style={styles.navText}>Search</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/profile")} style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="green" />
+        <TouchableOpacity
+          onPress={() => router.push("/profile")}
+          style={styles.navItem}
+        >
+          <Text style={styles.navIcon}>👤</Text>
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
       </View>
-
     </SafeAreaView>
   );
 }
@@ -338,11 +368,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
   },
   header: {
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     padding: 16,
-    paddingBottom: 20,
-    paddingTop: 68,
-    marginTop: -50,
   },
   headerRow: {
     flexDirection: "row",
@@ -352,7 +379,7 @@ const styles = StyleSheet.create({
   headerLeft: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 12,
     flex: 1,
   },
   backButton: {
@@ -367,8 +394,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
-
-  
+  headerSubtitle: {
+    color: "rgba(255, 255, 255, 0.8)",
+    fontSize: 14,
+  },
   headerRight: {
     flexDirection: "row",
     alignItems: "center",
@@ -414,7 +443,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "transparent",
   },
   activeTab: {
-    borderBottomColor: "#1DBF73",
+    borderBottomColor: "#4827EC",
   },
   tabText: {
     fontSize: 14,
@@ -422,7 +451,7 @@ const styles = StyleSheet.create({
     color: "#6b7280",
   },
   activeTabText: {
-    color: "#1DBF73",
+    color: "#4827EC",
   },
   unreadBadge: {
     backgroundColor: "#ef4444",
@@ -473,7 +502,7 @@ const styles = StyleSheet.create({
   },
   unreadCard: {
     borderLeftWidth: 4,
-    borderLeftColor: "#1DBF73",
+    borderLeftColor: "#4827EC",
     backgroundColor: "rgba(59, 130, 246, 0.05)",
   },
   notificationContent: {
@@ -527,7 +556,7 @@ const styles = StyleSheet.create({
   unreadDot: {
     width: 6,
     height: 6,
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#4827EC",
     borderRadius: 3,
   },
   notificationMessage: {
@@ -611,34 +640,35 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#6b7280",
   },
- // Bottom Navigation
   bottomNav: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    marginBottom: 0,
-    paddingBottom: 25,
-    backgroundColor: "white",
-    paddingVertical: 12,
+    backgroundColor: "#4827EC",
+    padding: 16,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    borderTopWidth: 1,
-    borderTopColor: "green",
   },
   navItem: {
     alignItems: "center",
-    justifyContent: "center",
+  },
+  navIcon: {
+    fontSize: 20,
+    marginBottom: 4,
   },
   navText: {
-    color: "green",
+    color: "white",
     fontSize: 12,
-    marginTop: 4,
   },
   homeButton: {
     backgroundColor: "white",
     borderRadius: 24,
-    padding: 8,
+    padding: 12,
+  },
+  homeIcon: {
+    fontSize: 20,
+    color: "#4827EC",
   },
 });
